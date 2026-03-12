@@ -88,10 +88,84 @@
             .left-ad { right: calc(50% + 530px); }
             .right-ad { left: calc(50% + 530px); }
         }
+		/* --- KARŞILAMA / REKLAM MODALI --- */
+.welcome-ad-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 23, 42, 0.4); /* Yarı saydam koyu arka plan */
+    backdrop-filter: blur(10px); /* Arka planı bulanıklaştırma efekti */
+    -webkit-backdrop-filter: blur(10px); /* Safari desteği için */
+    z-index: 9999; /* Sitenin en üstünde görünmesini sağlar */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.welcome-ad-content {
+    position: relative;
+    max-width: 400px; /* Reklam afişinin maksimum genişliği */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    animation: dropIn 0.5s ease-out forwards;
+}
+
+@keyframes dropIn {
+    from { transform: translateY(-30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.welcome-ad-image {
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+}
+
+.close-ad-btn {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    background-color: #ef4444; /* Kırmızı renk */
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.4);
+    transition: 0.3s;
+    z-index: 10;
+    border: 2px solid white;
+}
+
+.close-ad-btn:hover {
+    background-color: #dc2626;
+    transform: scale(1.1);
+}
     </style>
 </head>
 <body>
-
+<div id="welcomeAdModal" class="welcome-ad-modal">
+    <div class="welcome-ad-content">
+        <span class="close-ad-btn" id="closeAdBtn">&times;</span>
+        
+        <video id="welcomeAdVideo" class="welcome-ad-media" autoplay muted loop playsinline>
+            <source src="reklammp4.mp4" type="video/mp4">
+            Tarayıcınız video etiketini desteklemiyor.
+        </video>
+    </div>
+</div>
+</div>
     <header>
         <div class="header-content">
             <div class="logo-area">
@@ -545,6 +619,23 @@
                 resetModal();
             });
         });
+		// --- KARŞILAMA REKLAMINI KAPATMA İŞLEMİ ---
+const welcomeAdModal = document.getElementById('welcomeAdModal');
+const closeAdBtn = document.getElementById('closeAdBtn');
+
+if (welcomeAdModal && closeAdBtn) {
+    // Çarpıya basıldığında modalı gizle
+    closeAdBtn.addEventListener('click', () => {
+        welcomeAdModal.style.display = 'none';
+    });
+
+    // Opsiyonel: Dışarıya (bulanık alana) tıklandığında da kapansın
+    welcomeAdModal.addEventListener('click', (e) => {
+        if (e.target === welcomeAdModal) {
+            welcomeAdModal.style.display = 'none';
+        }
+    });
+}	
     </script>
 
 </body>
