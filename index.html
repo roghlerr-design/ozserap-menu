@@ -4,71 +4,222 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Özserap Kantin Plus+ Menü</title>
-	 <link rel="icon" type="image/x-icon" href="icon.png">
+    <link rel="icon" type="image/x-icon" href="icon.png">
     
     <style>
-        /* --- MODERN & MOBILE-FIRST STİLLER --- */
+        /* --- MODERN GLASSMORPHISM STİLLERİ --- */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
         
-        body { font-family: 'Poppins', sans-serif; background-color: #f4f7f6; margin: 0; padding: 0; color: #2b2d42; position: relative; overflow-x: hidden; }
-        
-        header { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: white; padding: 1rem 0; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 50; }
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            color: #1e293b; 
+            position: relative; 
+            overflow-x: hidden;
+            /* Glassmorphism arka planı: Renkli, canlı ve hareket hissiyatlı */
+            background: #e0f2fe;
+            min-height: 100vh;
+        }
+
+        /* Arka plandaki renkli bulanık şekiller */
+        body::before, body::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.6;
+        }
+        body::before {
+            width: 400px;
+            height: 400px;
+            background: #34d399; /* Zümrüt Yeşili */
+            top: -100px;
+            left: -100px;
+        }
+        body::after {
+            width: 500px;
+            height: 500px;
+            background: #38bdf8; /* Gök Mavisi */
+            bottom: -150px;
+            right: -150px;
+        }
+
+        /* --- HEADER (CAM EFEKTİ) --- */
+        header { 
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+            padding: 1rem 0; 
+            position: sticky; 
+            top: 0; 
+            z-index: 50; 
+        }
         .header-content { max-width: 1000px; margin: 0 auto; padding: 0 15px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; }
         .logo-area { display: flex; align-items: center; flex-direction: column; gap: 10px;}
-        .logo { max-height: 50px; cursor: pointer; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); } 
+        .logo { max-height: 50px; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); } 
         .brand-text { display: flex; flex-direction: column; }
-        header h1 { margin: 0; font-size: 1.5rem; color: #10b981; font-weight: 700; letter-spacing: -0.5px; }
-        header p { margin: 0; color: #94a3b8; font-size: 0.85rem; }
+        header h1 { margin: 0; font-size: 1.5rem; color: #065f46; font-weight: 700; letter-spacing: -0.5px; text-shadow: 0 2px 4px rgba(255,255,255,0.5); }
+        header p { margin: 0; color: #475569; font-size: 0.85rem; font-weight: 500; }
         
         .admin-controls { display: none; width: 100%; gap: 10px; justify-content: center; margin-top: 10px;}
-        .btn-add-new, .btn-logout { flex: 1; padding: 10px; border-radius: 8px; font-weight: 600; border: none; cursor: pointer; transition: 0.3s;}
-        .btn-add-new { background-color: #10b981; color: white; }
-        .btn-logout { background-color: #ef4444; color: white; }
-        .btn-add-new:hover { background-color: #059669; }
-        .btn-logout:hover { background-color: #dc2626; }
+        .btn-add-new, .btn-logout { flex: 1; padding: 10px; border-radius: 12px; font-weight: 600; border: 1px solid rgba(255,255,255,0.5); cursor: pointer; transition: 0.3s; backdrop-filter: blur(5px);}
+        .btn-add-new { background: rgba(16, 185, 129, 0.8); color: white; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2); }
+        .btn-logout { background: rgba(239, 68, 68, 0.8); color: white; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2); }
+        .btn-add-new:hover { background: rgba(16, 185, 129, 1); transform: translateY(-2px); }
+        .btn-logout:hover { background: rgba(239, 68, 68, 1); transform: translateY(-2px); }
         body.admin-mode .admin-controls { display: flex; }
 
-        .category-wrapper { background: white; padding: 15px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.03); margin-bottom: 20px; position: sticky; top: 90px; z-index: 40; }
-        .category-buttons { display: flex; overflow-x: auto; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; gap: 10px; padding: 0 15px; }
+        /* --- KATEGORİ BAR (YÜZEN CAM KAPSÜL) --- */
+        .category-wrapper { 
+            position: sticky; 
+            top: 95px; 
+            z-index: 40; 
+            margin: 20px auto;
+            max-width: 1000px;
+            padding: 0 15px;
+        }
+        .category-buttons { 
+            display: flex; 
+            overflow-x: auto; 
+            scroll-behavior: smooth; 
+            -webkit-overflow-scrolling: touch; 
+            gap: 10px; 
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+        }
         .category-buttons::-webkit-scrollbar { display: none; }
-        .btn { flex-shrink: 0; padding: 8px 20px; border: 1px solid #e2e8f0; background-color: white; color: #64748b; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 0.9rem; cursor: pointer; border-radius: 50px; transition: 0.3s; }
-        .btn.active { background-color: #10b981; color: white; border-color: #10b981; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3); }
+        .btn { 
+            flex-shrink: 0; 
+            padding: 8px 24px; 
+            border: 1px solid rgba(255,255,255,0.4); 
+            background: rgba(255, 255, 255, 0.4); 
+            color: #475569; 
+            font-family: 'Poppins', sans-serif; 
+            font-weight: 600; 
+            font-size: 0.9rem; 
+            cursor: pointer; 
+            border-radius: 50px; 
+            transition: all 0.3s ease; 
+        }
+        .btn:hover { background: rgba(255, 255, 255, 0.8); }
+        .btn.active { 
+            background: rgba(16, 185, 129, 0.9); 
+            color: white; 
+            border-color: transparent; 
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); 
+        }
 
+        /* --- MENÜ KARTLARI (GLASSMORPHISM) --- */
         .container { max-width: 1000px; margin: 0 auto 80px auto; padding: 0 15px; }
-        .menu-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
-        .menu-item { background-color: white; border-radius: 16px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.02); position: relative; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
-        .menu-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(to bottom, #10b981, #34d399); }
+        .menu-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        .menu-item { 
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 20px; 
+            padding: 20px; 
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.05); 
+            border: 1px solid rgba(255, 255, 255, 0.6); 
+            position: relative; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-between; 
+            overflow: hidden; 
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(31, 38, 135, 0.1);
+            background: rgba(255, 255, 255, 0.5);
+        }
+        /* Sol taraftaki şık çizgi efekti */
+        .menu-item::before { 
+            content: ''; 
+            position: absolute; 
+            left: 0; top: 0; bottom: 0; width: 5px; 
+            background: linear-gradient(to bottom, #10b981, #38bdf8); 
+            border-radius: 20px 0 0 20px;
+        }
         .item-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; gap: 10px; }
-        .item-title { font-size: 1.1rem; font-weight: 700; color: #1e293b; margin: 0; line-height: 1.3; }
-        .item-price { background-color: #ecfdf5; color: #059669; padding: 4px 10px; border-radius: 8px; font-size: 0.95rem; font-weight: 700; white-space: nowrap; }
-        .item-desc { font-size: 0.85rem; color: #64748b; margin: 0; line-height: 1.5; flex-grow: 1;}
+        .item-title { font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 0; line-height: 1.3; }
+        .item-price { 
+            background: rgba(255, 255, 255, 0.7); 
+            color: #059669; 
+            padding: 6px 12px; 
+            border-radius: 12px; 
+            font-size: 0.95rem; 
+            font-weight: 700; 
+            white-space: nowrap; 
+            border: 1px solid rgba(255,255,255,0.8);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+        .item-desc { font-size: 0.85rem; color: #475569; margin: 0; line-height: 1.6; flex-grow: 1; font-weight: 500;}
         .hidden { display: none !important; }
 
         /* --- DÜZENLE VE SİL BUTONLARI --- */
         .item-admin-actions { display: none; gap: 10px; margin-top: 15px; width: 100%; }
         body.admin-mode .item-admin-actions { display: flex; }
-        .edit-btn, .delete-btn { flex: 1; padding: 8px; border-radius: 8px; cursor: pointer; font-weight: 600; border: none; font-family: 'Poppins', sans-serif; transition: 0.3s; font-size: 0.85rem;}
-        .edit-btn { background-color: #e0f2fe; color: #0284c7; border: 1px solid #bae6fd; }
-        .edit-btn:hover { background-color: #0ea5e9; color: white; border-color: #0ea5e9; }
-        .delete-btn { background-color: #fee2e2; color: #ef4444; border: 1px solid #fca5a5; }
-        .delete-btn:hover { background-color: #ef4444; color: white; border-color: #ef4444; }
+        .edit-btn, .delete-btn { flex: 1; padding: 10px; border-radius: 10px; cursor: pointer; font-weight: 600; border: none; font-family: 'Poppins', sans-serif; transition: 0.3s; font-size: 0.85rem;}
+        .edit-btn { background: rgba(14, 165, 233, 0.15); color: #0284c7; }
+        .edit-btn:hover { background: #0ea5e9; color: white; }
+        .delete-btn { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+        .delete-btn:hover { background: #ef4444; color: white; }
 
         /* --- REKLAM PANOLARI --- */
         .ad-banner { display: none; } 
 
-        /* --- YÖNETİCİ MODALI --- */
-        .admin-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(15, 23, 42, 0.6); backdrop-filter: blur(5px); z-index: 100; align-items: center; justify-content: center; padding: 15px; box-sizing: border-box;}
-        .admin-content { background-color: white; padding: 25px; border-radius: 20px; width: 100%; max-width: 400px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); max-height: 90vh; overflow-y: auto;}
-        .admin-content h2 { margin-top: 0; font-size: 1.3rem; margin-bottom: 20px; color: #1e293b;}
+        /* --- YÖNETİCİ MODALI (CAM EFEKTİ) --- */
+        .admin-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(15, 23, 42, 0.4); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 100; align-items: center; justify-content: center; padding: 15px; box-sizing: border-box;}
+        .admin-content { 
+            background: rgba(255, 255, 255, 0.7); 
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 30px; 
+            border-radius: 24px; 
+            width: 100%; 
+            max-width: 400px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1); 
+            border: 1px solid rgba(255,255,255,0.8);
+            max-height: 90vh; 
+            overflow-y: auto;
+        }
+        .admin-content h2 { margin-top: 0; font-size: 1.4rem; margin-bottom: 20px; color: #0f172a;}
         .admin-form-group { margin-bottom: 15px; }
-        .admin-form-group label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 0.85rem;}
-        .admin-form-group input, .admin-form-group select, .admin-form-group textarea { width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 10px; box-sizing: border-box; font-family: 'Poppins', sans-serif; font-size: 0.95rem; }
-        .admin-btn { background-color: #10b981; color: white; border: none; padding: 12px; font-size: 1rem; border-radius: 10px; cursor: pointer; width: 100%; font-weight: 600; margin-bottom: 10px;}
-        .close-btn { background-color: #f1f5f9; color: #64748b; }
+        .admin-form-group label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 0.85rem; color: #334155;}
+        .admin-form-group input, .admin-form-group select, .admin-form-group textarea { 
+            width: 100%; 
+            padding: 12px; 
+            border: 1px solid rgba(255,255,255,0.6); 
+            background: rgba(255,255,255,0.5);
+            border-radius: 12px; 
+            box-sizing: border-box; 
+            font-family: 'Poppins', sans-serif; 
+            font-size: 0.95rem; 
+            outline: none;
+            transition: 0.3s;
+        }
+        .admin-form-group input:focus, .admin-form-group select:focus, .admin-form-group textarea:focus {
+            background: rgba(255,255,255,0.8);
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+        .admin-btn { background: #10b981; color: white; border: none; padding: 12px; font-size: 1rem; border-radius: 12px; cursor: pointer; width: 100%; font-weight: 600; margin-bottom: 10px; transition: 0.3s;}
+        .admin-btn:hover { background: #059669; transform: translateY(-2px); }
+        .close-btn { background: rgba(100, 116, 139, 0.2); color: #334155; }
+        .close-btn:hover { background: rgba(100, 116, 139, 0.3); }
 
         /* --- İMZA --- */
-        .footer-signature { position: fixed; bottom: 20px; right: 20px; background-color: rgba(255, 255, 255, 0.85); backdrop-filter: blur(8px); padding: 8px 16px; border-radius: 50px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border: 1px solid rgba(255,255,255,0.4); font-size: 0.85rem; color: #64748b; font-weight: 500; letter-spacing: 0.5px; z-index: 999; }
-        .footer-signature span { color: #10b981; font-weight: 700; }
+        .footer-signature { position: fixed; bottom: 20px; right: 20px; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 8px 16px; border-radius: 50px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid rgba(255,255,255,0.6); font-size: 0.85rem; color: #475569; font-weight: 500; letter-spacing: 0.5px; z-index: 999; }
+        .footer-signature span { color: #059669; font-weight: 700; }
 
         @media (min-width: 768px) {
             .menu-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
@@ -76,162 +227,99 @@
             .logo-area { flex-direction: row; }
             header h1 { font-size: 2rem; }
             .admin-controls { width: auto; justify-content: flex-end; margin-top: 0;}
-            .category-wrapper { position: static; box-shadow: none; background: transparent;}
-            .category-buttons { flex-wrap: wrap; justify-content: center; padding: 0;}
+            .category-buttons { flex-wrap: wrap; justify-content: center; padding: 10px;}
         }
         @media (min-width: 1024px) {
             .menu-grid { grid-template-columns: repeat(3, 1fr); }
             .menu-item { padding: 25px; }
         }
         @media (min-width: 1400px) {
-            .ad-banner { display: flex; position: fixed; top: 130px; width: 160px; height: 600px; background-color: #ffffff; box-shadow: 0 10px 30px rgba(0,0,0,0.05); align-items: center; justify-content: center; text-align: center; color: #cbd5e1; font-weight: 600; z-index: 5; border-radius: 16px; }
+            .ad-banner { display: flex; position: fixed; top: 130px; width: 160px; height: 600px; background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.5); box-shadow: 0 10px 30px rgba(0,0,0,0.05); align-items: center; justify-content: center; text-align: center; color: #cbd5e1; font-weight: 600; z-index: 5; border-radius: 20px; overflow: hidden; }
             .left-ad { right: calc(50% + 530px); }
             .right-ad { left: calc(50% + 530px); }
+            .ad-banner img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9;}
         }
-		/* --- KARŞILAMA / REKLAM MODALI --- */
-.welcome-ad-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(15, 23, 42, 0.4); /* Yarı saydam koyu arka plan */
-    backdrop-filter: blur(10px); /* Arka planı bulanıklaştırma efekti */
-    -webkit-backdrop-filter: blur(10px); /* Safari desteği için */
-    z-index: 9999; /* Sitenin en üstünde görünmesini sağlar */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    box-sizing: border-box;
-}
 
-.welcome-ad-content {
-    position: relative;
-    max-width: 400px; /* Reklam afişinin maksimum genişliği */
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    animation: dropIn 0.5s ease-out forwards;
-}
+        /* --- KARŞILAMA / REKLAM MODALI (GÜNCELLENMİŞ CAM EFEKTİ) --- */
+        .welcome-ad-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
 
-@keyframes dropIn {
-    from { transform: translateY(-30px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
+        .welcome-ad-content {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            max-height: 85vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: dropIn 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.3);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        }
 
-.welcome-ad-image {
-    width: 100%;
-    height: auto;
-    border-radius: 16px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-}
+        @keyframes dropIn {
+            from { transform: translateY(-40px) scale(0.95); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
 
-.close-ad-btn {
-    position: absolute;
-    top: -15px;
-    right: -15px;
-    background-color: #ef4444; /* Kırmızı renk */
-    color: white;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.4);
-    transition: 0.3s;
-    z-index: 10;
-    border: 2px solid white;
-}
+        .welcome-ad-media {
+            width: 100%;
+            height: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 12px;
+            outline: none;
+            background-color: transparent; 
+        }
 
-.close-ad-btn:hover {
-    background-color: #dc2626;
-    transform: scale(1.1);
-}
-/* --- KARŞILAMA / REKLAM MODALI (GÜNCELLENMİŞ) --- */
-.welcome-ad-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(15, 23, 42, 0.6);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px; /* Mobilde kenarlardan boşluk bırakır */
-    box-sizing: border-box;
-}
+        .close-ad-btn {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: rgba(239, 68, 68, 0.9);
+            backdrop-filter: blur(5px);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+            transition: 0.3s;
+            z-index: 10;
+            border: 2px solid rgba(255,255,255,0.8);
+        }
 
-.welcome-ad-content {
-    position: relative;
-    width: 100%;
-    max-width: 400px; /* Tablet ve PC'de aşırı büyümesini engeller */
-    max-height: 85vh; /* EKRANIN %85'İNDEN FAZLA UZAMASINI ENGELLER (Mobilde çok önemli) */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    animation: dropIn 0.5s ease-out forwards;
-}
+        .close-ad-btn:hover {
+            background: #ef4444;
+            transform: scale(1.1) rotate(90deg);
+        }
 
-@keyframes dropIn {
-    from { transform: translateY(-30px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-.welcome-ad-media {
-    width: 100%;
-    height: 100%; /* İçinde bulunduğu kutunun yüksekliğini alır */
-    max-height: 80vh; /* Mobilde taşmayı kesin önler */
-    object-fit: contain; /* VİDEOYU SÜNDÜRMEZ, EKRANA TAM SIĞDIRIR */
-    border-radius: 16px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-    outline: none;
-    background-color: transparent; 
-}
-
-/* Çarpı Butonu */
-.close-ad-btn {
-    position: absolute;
-    top: -15px;
-    right: -15px;
-    background-color: #ef4444;
-    color: white;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.4);
-    transition: 0.3s;
-    z-index: 10;
-    border: 2px solid white;
-}
-
-/* --- SADECE KÜÇÜK MOBİL EKRANLAR İÇİN İNCE AYAR --- */
-@media (max-width: 480px) {
-    .welcome-ad-modal {
-        padding: 15px; /* Dar ekranlarda sağ-sol boşluğunu hafif azaltır */
-    }
-    .close-ad-btn {
-        top: -10px; /* Çarpının ekran dışına taşmasını engeller */
-        right: -10px;
-        width: 30px;
-        height: 30px;
-        font-size: 1.2rem;
-    }
-}
+        @media (max-width: 480px) {
+            .welcome-ad-modal { padding: 15px; }
+            .close-ad-btn { top: -10px; right: -10px; width: 30px; height: 30px; font-size: 1.2rem; }
+        }
     </style>
 </head>
 <body>
@@ -245,7 +333,7 @@
         </video>
     </div>
 </div>
-</div>
+
     <header>
         <div class="header-content">
             <div class="logo-area">
@@ -267,15 +355,13 @@
     <aside class="ad-banner right-ad"><img src="reklam.png"></aside>
 
     <div class="category-wrapper">
-        <div class="container" style="margin-bottom: 0;">
-            <div class="category-buttons">
-                <button class="btn active" data-filter="all">TÜM MENÜ</button>
-                <button class="btn" data-filter="doyuran">DOYURAN LEZZETLER</button>
-                <button class="btn" data-filter="sicak">SICAK İÇECEKLER</button>
-                <button class="btn" data-filter="soguk">SOĞUK İÇECEKLER</button>
-                <button class="btn" data-filter="pizza">PİZZALAR</button>
-                <button class="btn" data-filter="kahve">YENİ NESİL KAHVE</button>
-            </div>
+        <div class="category-buttons">
+            <button class="btn active" data-filter="all">TÜM MENÜ</button>
+            <button class="btn" data-filter="doyuran">DOYURAN LEZZETLER</button>
+            <button class="btn" data-filter="sicak">SICAK İÇECEKLER</button>
+            <button class="btn" data-filter="soguk">SOĞUK İÇECEKLER</button>
+            <button class="btn" data-filter="pizza">PİZZALAR</button>
+            <button class="btn" data-filter="kahve">YENİ NESİL KAHVE</button>
         </div>
     </div>
 
@@ -426,8 +512,8 @@
 
     <div class="footer-signature">
         Made by <span>Oğuzhan Yavaş</span>
-		<span>/Arda Utancak</span>
-		
+        <span>/Arda Utancak</span>
+        
     </div>
 
     <div class="admin-modal" id="adminModal">
@@ -699,23 +785,24 @@
                 resetModal();
             });
         });
-		// --- KARŞILAMA REKLAMINI KAPATMA İŞLEMİ ---
-const welcomeAdModal = document.getElementById('welcomeAdModal');
-const closeAdBtn = document.getElementById('closeAdBtn');
+        
+        // --- KARŞILAMA REKLAMINI KAPATMA İŞLEMİ ---
+        const welcomeAdModal = document.getElementById('welcomeAdModal');
+        const closeAdBtn = document.getElementById('closeAdBtn');
 
-if (welcomeAdModal && closeAdBtn) {
-    // Çarpıya basıldığında modalı gizle
-    closeAdBtn.addEventListener('click', () => {
-        welcomeAdModal.style.display = 'none';
-    });
+        if (welcomeAdModal && closeAdBtn) {
+            // Çarpıya basıldığında modalı gizle
+            closeAdBtn.addEventListener('click', () => {
+                welcomeAdModal.style.display = 'none';
+            });
 
-    // Opsiyonel: Dışarıya (bulanık alana) tıklandığında da kapansın
-    welcomeAdModal.addEventListener('click', (e) => {
-        if (e.target === welcomeAdModal) {
-            welcomeAdModal.style.display = 'none';
-        }
-    });
-}	
+            // Opsiyonel: Dışarıya (bulanık alana) tıklandığında da kapansın
+            welcomeAdModal.addEventListener('click', (e) => {
+                if (e.target === welcomeAdModal) {
+                    welcomeAdModal.style.display = 'none';
+                }
+            });
+        }   
     </script>
 
 </body>
