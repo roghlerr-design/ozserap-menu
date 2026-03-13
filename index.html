@@ -477,6 +477,7 @@
     </div>
 
     <script>
+		window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
         document.addEventListener('DOMContentLoaded', () => {
             
             const menuGrid = document.getElementById('menuGrid');
@@ -716,5 +717,6 @@
             welcomeAdModal.addEventListener('click', (e) => { if (e.target === welcomeAdModal) welcomeAdModal.style.display = 'none'; });
         }   
     </script>
+	<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
