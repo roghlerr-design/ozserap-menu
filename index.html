@@ -19,6 +19,7 @@
             overflow-x: hidden;
             background: #e0f2fe;
             min-height: 100vh;
+            transition: background 0.5s ease, color 0.5s ease; /* Yumuşak geçiş için */
         }
 
         /* Arka plandaki renkli bulanık şekiller */
@@ -29,21 +30,10 @@
             filter: blur(80px);
             z-index: -1;
             opacity: 0.6;
+            transition: background 0.5s ease;
         }
-        body::before {
-            width: 400px;
-            height: 400px;
-            background: #34d399; 
-            top: -100px;
-            left: -100px;
-        }
-        body::after {
-            width: 500px;
-            height: 500px;
-            background: #38bdf8; 
-            bottom: -150px;
-            right: -150px;
-        }
+        body::before { width: 400px; height: 400px; background: #34d399; top: -100px; left: -100px; }
+        body::after { width: 500px; height: 500px; background: #38bdf8; bottom: -150px; right: -150px; }
 
         /* --- HEADER --- */
         header { 
@@ -56,14 +46,36 @@
             position: sticky; 
             top: 0; 
             z-index: 50; 
+            transition: all 0.5s ease;
         }
-        .header-content { max-width: 1000px; margin: 0 auto; padding: 0 15px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; }
+        .header-content { max-width: 1000px; margin: 0 auto; padding: 0 15px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; position: relative;}
         .logo-area { display: flex; align-items: center; flex-direction: column; gap: 10px;}
         .logo { max-height: 50px; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); } 
         .brand-text { display: flex; flex-direction: column; }
         header h1 { margin: 0; font-size: 1.5rem; color: #065f46; font-weight: 700; letter-spacing: -0.5px; text-shadow: 0 2px 4px rgba(255,255,255,0.5); }
         header p { margin: 0; color: #475569; font-size: 0.85rem; font-weight: 500; }
         
+        /* Tema Değiştirme Butonu */
+        .theme-toggle-btn {
+            position: absolute;
+            top: 0;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255,255,255,0.6);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .theme-toggle-btn:hover { transform: scale(1.1); background: rgba(255, 255, 255, 0.8); }
+
         .admin-controls { display: none; width: 100%; gap: 10px; justify-content: center; margin-top: 10px;}
         .btn-add-new, .btn-logout { flex: 1; padding: 10px; border-radius: 12px; font-weight: 600; border: 1px solid rgba(255,255,255,0.5); cursor: pointer; transition: 0.3s; backdrop-filter: blur(5px);}
         .btn-add-new { background: rgba(16, 185, 129, 0.8); color: white; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2); }
@@ -74,83 +86,29 @@
 
         .container { max-width: 1000px; margin: 30px auto 80px auto; padding: 0 15px; }
 
-        /* --- KATEGORİ KARTLARI (YENİ) --- */
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-        }
-        .category-card {
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-radius: 20px;
-            padding: 30px 15px;
-            text-align: center;
-            cursor: pointer;
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.05);
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        .category-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.6);
-            box-shadow: 0 12px 40px rgba(31, 38, 135, 0.1);
-        }
+        /* --- KATEGORİ KARTLARI --- */
+        .category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .category-card { background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-radius: 20px; padding: 30px 15px; text-align: center; cursor: pointer; border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 8px 32px rgba(31, 38, 135, 0.05); transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
+        .category-card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.6); box-shadow: 0 12px 40px rgba(31, 38, 135, 0.1); }
         .category-card .icon { font-size: 3rem; }
-        .category-card h3 { margin: 0; color: #0f172a; font-size: 1.1rem; font-weight: 700; }
+        .category-card h3 { margin: 0; color: #0f172a; font-size: 1.1rem; font-weight: 700; transition: 0.3s;}
 
         /* --- GÖRÜNÜM KONTROLLERİ --- */
         .hidden-view { display: none !important; }
         
-        .back-btn {
-            background: rgba(255, 255, 255, 0.6);
-            border: 1px solid rgba(255,255,255,0.8);
-            padding: 10px 20px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            color: #334155;
-            margin-bottom: 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            backdrop-filter: blur(10px);
-            transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
+        .back-btn { background: rgba(255, 255, 255, 0.6); border: 1px solid rgba(255,255,255,0.8); padding: 10px 20px; border-radius: 50px; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 600; color: #334155; margin-bottom: 20px; display: inline-flex; align-items: center; gap: 8px; backdrop-filter: blur(10px); transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         .back-btn:hover { background: rgba(255, 255, 255, 0.9); color: #0f172a; transform: translateX(-3px); }
-        .current-category-title { font-size: 1.5rem; color: #0f172a; margin: 0 0 20px 0; border-bottom: 2px solid rgba(16, 185, 129, 0.3); padding-bottom: 10px; display: inline-block;}
+        .current-category-title { font-size: 1.5rem; color: #0f172a; margin: 0 0 20px 0; border-bottom: 2px solid rgba(16, 185, 129, 0.3); padding-bottom: 10px; display: inline-block; transition: 0.3s;}
 
         /* --- MENÜ KARTLARI --- */
         .menu-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
-        .menu-item { 
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-radius: 20px; 
-            padding: 20px; 
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.05); 
-            border: 1px solid rgba(255, 255, 255, 0.6); 
-            position: relative; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: space-between; 
-            overflow: hidden; 
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
+        .menu-item { background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(16px); border-radius: 20px; padding: 20px; box-shadow: 0 8px 32px rgba(31, 38, 135, 0.05); border: 1px solid rgba(255, 255, 255, 0.6); position: relative; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; transition: all 0.3s ease; }
         .menu-item:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(31, 38, 135, 0.1); background: rgba(255, 255, 255, 0.5); }
         .menu-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: linear-gradient(to bottom, #10b981, #38bdf8); border-radius: 20px 0 0 20px; }
         .item-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; gap: 10px; }
-        .item-title { font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 0; line-height: 1.3; }
-        .item-price { background: rgba(255, 255, 255, 0.7); color: #059669; padding: 6px 12px; border-radius: 12px; font-size: 0.95rem; font-weight: 700; white-space: nowrap; border: 1px solid rgba(255,255,255,0.8); box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
-        .item-desc { font-size: 0.85rem; color: #475569; margin: 0; line-height: 1.6; flex-grow: 1; font-weight: 500;}
+        .item-title { font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 0; line-height: 1.3; transition: 0.3s;}
+        .item-price { background: rgba(255, 255, 255, 0.7); color: #059669; padding: 6px 12px; border-radius: 12px; font-size: 0.95rem; font-weight: 700; white-space: nowrap; border: 1px solid rgba(255,255,255,0.8); box-shadow: 0 2px 10px rgba(0,0,0,0.02); transition: 0.3s;}
+        .item-desc { font-size: 0.85rem; color: #475569; margin: 0; line-height: 1.6; flex-grow: 1; font-weight: 500; transition: 0.3s;}
 
         /* --- DÜZENLE VE SİL BUTONLARI --- */
         .item-admin-actions { display: none; gap: 10px; margin-top: 15px; width: 100%; }
@@ -162,8 +120,8 @@
         .delete-btn:hover { background: #ef4444; color: white; }
 
         /* --- MODALLAR VE DİĞER STİLLER --- */
-        .admin-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(15, 23, 42, 0.4); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 100; align-items: center; justify-content: center; padding: 15px; box-sizing: border-box;}
-        .admin-content { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(20px); padding: 30px; border-radius: 24px; width: 100%; max-width: 400px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.8); max-height: 90vh; overflow-y: auto;}
+        .admin-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(15, 23, 42, 0.4); backdrop-filter: blur(10px); z-index: 100; align-items: center; justify-content: center; padding: 15px; box-sizing: border-box;}
+        .admin-content { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(20px); padding: 30px; border-radius: 24px; width: 100%; max-width: 400px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.8); max-height: 90vh; overflow-y: auto; transition: 0.3s;}
         .admin-content h2 { margin-top: 0; font-size: 1.4rem; margin-bottom: 20px; color: #0f172a;}
         .admin-form-group { margin-bottom: 15px; }
         .admin-form-group label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 0.85rem; color: #334155;}
@@ -172,7 +130,7 @@
         .admin-btn { background: #10b981; color: white; border: none; padding: 12px; border-radius: 12px; cursor: pointer; width: 100%; font-weight: 600; margin-bottom: 10px;}
         .close-btn { background: rgba(100, 116, 139, 0.2); color: #334155; }
         
-        .footer-signature { position: fixed; bottom: 20px; right: 20px; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(12px); padding: 8px 16px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.6); font-size: 0.85rem; color: #475569; font-weight: 500; z-index: 999; }
+        .footer-signature { position: fixed; bottom: 20px; right: 20px; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(12px); padding: 8px 16px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.6); font-size: 0.85rem; color: #475569; font-weight: 500; z-index: 999; transition: 0.3s;}
         .footer-signature span { color: #059669; font-weight: 700; }
 
         @media (min-width: 768px) {
@@ -181,70 +139,59 @@
             .header-content { flex-direction: row; justify-content: space-between; padding: 0 20px;}
             .logo-area { flex-direction: row; }
             header h1 { font-size: 2rem; }
+            .theme-toggle-btn { position: relative; top: 0; right: 0; } /* Mobilde mutlak, PC'de normal akışta */
             .admin-controls { width: auto; justify-content: flex-end; margin-top: 0;}
         }
         @media (min-width: 1024px) {
             .menu-grid, .category-grid { grid-template-columns: repeat(3, 1fr); }
         }
         
-        /* --- KARŞILAMA / REKLAM MODALI (MOBİL UYUMLU GÜNCEL HALİ) --- */
-.welcome-ad-modal { 
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%; 
-    background-color: rgba(15, 23, 42, 0.5); 
-    backdrop-filter: blur(12px); 
-    z-index: 9999; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    padding: 15px; /* Mobilde kenarlardan güvenli boşluk */
-    box-sizing: border-box;
-}
+        /* --- KARŞILAMA / REKLAM MODALI --- */
+        .welcome-ad-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(15, 23, 42, 0.5); backdrop-filter: blur(12px); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 15px; box-sizing: border-box;}
+        .welcome-ad-content { position: relative; width: 100%; max-width: 400px; max-height: 85vh; display: flex; justify-content: center; align-items: center; background: rgba(255, 255, 255, 0.1); padding: 8px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.3); box-sizing: border-box;}
+        .welcome-ad-media { width: 100%; height: auto; max-height: calc(85vh - 16px); object-fit: contain; border-radius: 12px; }
+        .close-ad-btn { position: absolute; top: -10px; right: -10px; background: rgba(239, 68, 68, 0.9); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; cursor: pointer; border: 2px solid rgba(255,255,255,0.8); z-index: 10; box-shadow: 0 4px 10px rgba(0,0,0,0.2);}
 
-.welcome-ad-content { 
-    position: relative; 
-    width: 100%; 
-    max-width: 400px; 
-    max-height: 85vh; /* Ekranın %85'ini geçemez */
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    background: rgba(255, 255, 255, 0.1); 
-    padding: 8px; /* İç boşluğu biraz kıstık ki video daha rahat sığsın */
-    border-radius: 20px; 
-    border: 1px solid rgba(255,255,255,0.3); 
-    box-sizing: border-box;
-}
 
-.welcome-ad-media { 
-    width: 100%; 
-    height: auto; /* Yüksekliği 100% yerine auto yapıyoruz, böylece sündürme yapmaz */
-    max-height: calc(85vh - 16px); /* Padding değerlerini çıkararak tam sığmasını sağlıyoruz */
-    object-fit: contain; /* Videonun veya görselin kesilmesini engeller */
-    border-radius: 12px; 
-}
+        /* =========================================
+           DARK MODE STİLLERİ (KOYU TEMA GEÇİŞİ)
+           ========================================= */
+        body.dark-mode { background: #0f172a; color: #f8fafc; }
+        body.dark-mode::before { background: #064e3b; }
+        body.dark-mode::after { background: #0c4a6e; }
+        
+        body.dark-mode header { background: rgba(15, 23, 42, 0.6); border-bottom-color: rgba(255,255,255,0.1); }
+        body.dark-mode header h1 { color: #34d399; text-shadow: 0 2px 10px rgba(52, 211, 153, 0.2); }
+        body.dark-mode header p { color: #94a3b8; }
+        body.dark-mode .theme-toggle-btn { background: rgba(15, 23, 42, 0.5); border-color: rgba(255,255,255,0.2); color: #f8fafc; }
+        body.dark-mode .theme-toggle-btn:hover { background: rgba(30, 41, 59, 0.8); }
 
-.close-ad-btn { 
-    position: absolute; 
-    top: -10px; /* Mobilde ekran dışına taşmaması için biraz içeri aldık */
-    right: -10px; 
-    background: rgba(239, 68, 68, 0.9); 
-    color: white; 
-    width: 32px; 
-    height: 32px; 
-    border-radius: 50%; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    font-size: 1.3rem; 
-    cursor: pointer; 
-    border: 2px solid rgba(255,255,255,0.8); 
-    z-index: 10;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
+        body.dark-mode .category-card { background: rgba(30, 41, 59, 0.5); border-color: rgba(255,255,255,0.1); }
+        body.dark-mode .category-card:hover { background: rgba(30, 41, 59, 0.8); }
+        body.dark-mode .category-card h3 { color: #f8fafc; }
+
+        body.dark-mode .back-btn { background: rgba(30, 41, 59, 0.6); color: #f8fafc; border-color: rgba(255,255,255,0.1); }
+        body.dark-mode .back-btn:hover { background: rgba(30, 41, 59, 0.9); }
+        body.dark-mode .current-category-title { color: #f8fafc; border-bottom-color: rgba(52, 211, 153, 0.3); }
+
+        body.dark-mode .menu-item { background: rgba(30, 41, 59, 0.5); border-color: rgba(255,255,255,0.1); }
+        body.dark-mode .menu-item:hover { background: rgba(30, 41, 59, 0.8); }
+        body.dark-mode .item-title { color: #f8fafc; }
+        body.dark-mode .item-price { background: rgba(15, 23, 42, 0.8); color: #34d399; border-color: rgba(255,255,255,0.1); }
+        body.dark-mode .item-desc { color: #94a3b8; }
+
+        body.dark-mode .footer-signature { background: rgba(15, 23, 42, 0.6); border-color: rgba(255,255,255,0.1); color: #94a3b8; }
+
+        body.dark-mode .admin-content { background: rgba(15, 23, 42, 0.85); border-color: rgba(255,255,255,0.1); }
+        body.dark-mode .admin-content h2 { color: #f8fafc; }
+        body.dark-mode .admin-form-group label { color: #94a3b8; }
+        body.dark-mode .admin-form-group input, 
+        body.dark-mode .admin-form-group select, 
+        body.dark-mode .admin-form-group textarea { background: rgba(30, 41, 59, 0.8); color: #f8fafc; border-color: rgba(255,255,255,0.1); }
+        body.dark-mode .admin-form-group input:focus, 
+        body.dark-mode .admin-form-group select:focus, 
+        body.dark-mode .admin-form-group textarea:focus { border-color: #34d399; }
+        body.dark-mode .close-btn { background: rgba(255, 255, 255, 0.1); color: #cbd5e1; }
     </style>
 </head>
 <body>
@@ -267,6 +214,9 @@
                     <p>Kantin & Kafe & Restaurant</p>
                 </div>
             </div>
+            
+            <button id="themeToggle" class="theme-toggle-btn" title="Temayı Değiştir">🌙</button>
+
             <div class="admin-controls">
                 <button class="btn-add-new" id="openAddModalBtn">+ Yeni Ürün</button>
                 <button class="btn-logout" id="logoutBtn">Çıkış Yap</button>
@@ -312,141 +262,20 @@
                 <div class="item-header"><h3 class="item-title">BURGER MENÜ</h3><span class="item-price">290 TL</span></div>
                 <p class="item-desc">Gurme Susamlı Burger Ekmeği %100 Dana Köfte, Marul, Domates, Cheddar ve Burger Sos</p>
             </div>
-            <div class="menu-item" data-category="doyuran">
-                <div class="item-header"><h3 class="item-title">ALAVARA MAKARNA</h3><span class="item-price">140 TL</span></div>
-                <p class="item-desc">Linguine Makarna Üzerine Napoliten Sos, Mısır, Kaşar Peyniri, Kekik</p>
-            </div>
-            <div class="menu-item" data-category="doyuran">
-                <div class="item-header"><h3 class="item-title">KARIŞIK KANTİN TOST</h3><span class="item-price">100 TL</span></div>
-                <p class="item-desc">Sucuk, Kaşar Peyniri, Domates, Salça, Ketçap ve Mayonez</p>
-            </div>
-            <div class="menu-item" data-category="doyuran">
-                <div class="item-header"><h3 class="item-title">PATSO</h3><span class="item-price">125 TL</span></div>
-                <p class="item-desc">Ekmek Arası Patates Kızartması, Sosis, Kaşar Peyniri, Ketçap ve Mayonez</p>
-            </div>
-            <div class="menu-item" data-category="doyuran">
-                <div class="item-header"><h3 class="item-title">ETLİ MANTI</h3><span class="item-price">150 TL</span></div>
-                <p class="item-desc">Dana Etli Orijinal Mantı, Yoğurt ve Mantı sosu</p>
-            </div>
-            <div class="menu-item" data-category="doyuran">
-                <div class="item-header"><h3 class="item-title">EZOGELİN</h3><span class="item-price">90 TL</span></div>
-                <p class="item-desc">Günlük Taze Ezogelin Çorbası</p>
-            </div>
-            <div class="menu-item" data-category="doyuran">
-                <div class="item-header"><h3 class="item-title">MERCİMEK</h3><span class="item-price">90 TL</span></div>
-                <p class="item-desc">Günlük Taze Mercimek Çorbası</p>
-            </div>
-            <div class="menu-item" data-category="doyuran">
-                <div class="item-header"><h3 class="item-title">KÖFTE EKMEK</h3><span class="item-price">150 TL</span></div>
-                <p class="item-desc">Ekmek Arası %100 Dana köfte, Domates, Sumaklı Soğan</p>
-            </div>
-            <div class="menu-item" data-category="doyuran">
-                <div class="item-header"><h3 class="item-title">PORSİYON PATATES</h3><span class="item-price">100 TL</span></div>
-                <p class="item-desc">Kajun Baharatı, Kızarmış Patates, Ketçap, Mayonez</p>
-            </div>
-
             <div class="menu-item" data-category="sicak">
                 <div class="item-header"><h3 class="item-title">ÇAY</h3><span class="item-price">15 TL</span></div><p class="item-desc"></p>
-            </div>
-            <div class="menu-item" data-category="sicak">
-                <div class="item-header"><h3 class="item-title">DUBLE ÇAY</h3><span class="item-price">30 TL</span></div><p class="item-desc"></p>
-            </div>
-            <div class="menu-item" data-category="sicak">
-                <div class="item-header"><h3 class="item-title">TÜRK KAHVESİ</h3><span class="item-price">65 TL</span></div><p class="item-desc"></p>
-            </div>
-            <div class="menu-item" data-category="sicak">
-                <div class="item-header"><h3 class="item-title">DUBLE TÜRK KAHVESİ</h3><span class="item-price">95 TL</span></div><p class="item-desc"></p>
-            </div>
-            <div class="menu-item" data-category="sicak">
-                <div class="item-header"><h3 class="item-title">NESCAFE</h3><span class="item-price">40 TL</span></div><p class="item-desc"></p>
-            </div>
-            <div class="menu-item" data-category="sicak">
-                <div class="item-header"><h3 class="item-title">SÜTLÜ KÖPÜKLÜ</h3><span class="item-price">45 TL</span></div><p class="item-desc"></p>
-            </div>
-
-            <div class="menu-item" data-category="soguk">
-                <div class="item-header"><h3 class="item-title">SU</h3><span class="item-price">15 TL</span></div><p class="item-desc"></p>
-            </div>
-            <div class="menu-item" data-category="soguk">
-                <div class="item-header"><h3 class="item-title">AYRAN</h3><span class="item-price">20 TL</span></div><p class="item-desc"></p>
-            </div>
-            <div class="menu-item" data-category="soguk">
-                <div class="item-header"><h3 class="item-title">SADE MADEN SUYU</h3><span class="item-price">20 TL</span></div><p class="item-desc"></p>
-            </div>
-            <div class="menu-item" data-category="soguk">
-                <div class="item-header"><h3 class="item-title">MEYVELİ MADEN SUYU</h3><span class="item-price">25 TL</span></div><p class="item-desc"></p>
-            </div>
-            <div class="menu-item" data-category="soguk">
-                <div class="item-header"><h3 class="item-title">COCA COLA CAM ŞİŞE</h3><span class="item-price">50 TL</span></div><p class="item-desc"></p>
             </div>
             <div class="menu-item" data-category="soguk">
                 <div class="item-header"><h3 class="item-title">COCA COLA 330 ML</h3><span class="item-price">65 TL</span></div><p class="item-desc"></p>
             </div>
-            <div class="menu-item" data-category="soguk">
-                <div class="item-header"><h3 class="item-title">NİĞDE GAZOZU</h3><span class="item-price">35 TL</span></div><p class="item-desc"></p>
-            </div>
-            <div class="menu-item" data-category="soguk">
-                <div class="item-header"><h3 class="item-title">ICE TEA 200 ML</h3><span class="item-price">50 TL</span></div><p class="item-desc"></p>
-            </div>
-            <div class="menu-item" data-category="soguk">
-                <div class="item-header"><h3 class="item-title">ICE TEA 330 ML</h3><span class="item-price">60 TL</span></div><p class="item-desc"></p>
-            </div>
-            <div class="menu-item" data-category="soguk">
-                <div class="item-header"><h3 class="item-title">CAPRİ-SUN</h3><span class="item-price">35 TL</span></div><p class="item-desc"></p>
-            </div>
-            <div class="menu-item" data-category="soguk">
-                <div class="item-header"><h3 class="item-title">NESCAFE SOĞUK KAHVE</h3><span class="item-price">80 TL</span></div><p class="item-desc"></p>
-            </div>
-
-            <div class="menu-item" data-category="pizza">
+             <div class="menu-item" data-category="pizza">
                 <div class="item-header"><h3 class="item-title">KARIŞIK PİZZA</h3><span class="item-price">K: 245 | B: 255</span></div>
                 <p class="item-desc">Pizza Sosu, Mozarella, Sucuk, Salam, Mantar, Mısır, Yeşil Biber</p>
             </div>
-            <div class="menu-item" data-category="pizza">
-                <div class="item-header"><h3 class="item-title">MEXICAN PİZZA</h3><span class="item-price">K: 255 | B: 265</span></div>
-                <p class="item-desc">Pizza Sosu, Sucuk, Mantar, Köz Biber, Jalapeno</p>
-            </div>
-            <div class="menu-item" data-category="pizza">
-                <div class="item-header"><h3 class="item-title">SEBZELİ PİZZA</h3><span class="item-price">K: 235 | B: 250</span></div>
-                <p class="item-desc">Pizza Sosu, Mantar, Mozarella, Köz Biber, Yeşil Biber, Zeytin, Mısır</p>
-            </div>
-            <div class="menu-item" data-category="pizza">
-                <div class="item-header"><h3 class="item-title">MARGARİTA PİZZA</h3><span class="item-price">K: 235 | B: 250</span></div>
-                <p class="item-desc">Pizza Sosu, Mozarella</p>
-            </div>
-            <div class="menu-item" data-category="pizza">
-                <div class="item-header"><h3 class="item-title">EXTRA PİZZA</h3><span class="item-price">K: 250 | B: 260</span></div>
-                <p class="item-desc">Pizza Sosu, Mozarella, Sucuk, Salam, Sosis</p>
-            </div>
-            <div class="menu-item" data-category="pizza">
-                <div class="item-header"><h3 class="item-title">İKİLİ MENÜ</h3><span class="item-price">490 TL</span></div>
-                <p class="item-desc">İki Adet Büyük Boy Pizza Menü</p>
-            </div>
-
             <div class="menu-item" data-category="kahve">
                 <div class="item-header"><h3 class="item-title">ESPRESSO</h3><span class="item-price">50 TL</span></div><p class="item-desc"></p>
             </div>
-            <div class="menu-item" data-category="kahve">
-                <div class="item-header"><h3 class="item-title">AMERICANO / ICED AMERICANO</h3><span class="item-price">70 TL</span></div><p class="item-desc"></p>
-            </div>
-            <div class="menu-item" data-category="kahve">
-                <div class="item-header"><h3 class="item-title">SICAK ÇİKOLATA</h3><span class="item-price">60 TL</span></div><p class="item-desc"></p>
-            </div>
-            <div class="menu-item" data-category="kahve">
-                <div class="item-header"><h3 class="item-title">CARAMEL LATTE</h3><span class="item-price">70 TL</span></div><p class="item-desc"></p>
-            </div>
-            <div class="menu-item" data-category="kahve">
-                <div class="item-header"><h3 class="item-title">CAPPUCCINO</h3><span class="item-price">70 TL</span></div><p class="item-desc"></p>
-            </div>
-            <div class="menu-item" data-category="kahve">
-                <div class="item-header"><h3 class="item-title">LATTE</h3><span class="item-price">70 TL</span></div><p class="item-desc"></p>
-            </div>
-            <div class="menu-item" data-category="kahve">
-                <div class="item-header"><h3 class="item-title">FLAT WHITE / ICED FLAT WHITE</h3><span class="item-price">70 TL</span></div><p class="item-desc"></p>
-            </div>
-            <div class="menu-item" data-category="kahve">
-                <div class="item-header"><h3 class="item-title">MOCHA</h3><span class="item-price">70 TL</span></div><p class="item-desc"></p>
-            </div>
+            
         </div>
     </div>
 
@@ -477,9 +306,34 @@
     </div>
 
     <script>
-		window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+        
         document.addEventListener('DOMContentLoaded', () => {
             
+            // --- DARK MODE (KOYU TEMA) İŞLEMLERİ ---
+            const themeToggleBtn = document.getElementById('themeToggle');
+            const body = document.body;
+            
+            // LocalStorage'dan önceki seçimi kontrol et
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+                themeToggleBtn.innerText = '☀️';
+            }
+
+            // Butona tıklandığında temayı değiştir
+            themeToggleBtn.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                    themeToggleBtn.innerText = '☀️';
+                } else {
+                    localStorage.setItem('theme', 'light');
+                    themeToggleBtn.innerText = '🌙';
+                }
+            });
+
+            // Geri kalan değişkenler...
             const menuGrid = document.getElementById('menuGrid');
             const categoryView = document.getElementById('categoryView');
             const productsView = document.getElementById('productsView');
@@ -493,18 +347,15 @@
             let deletedProducts = [];
             window.currentEditItem = null; 
 
-            // --- YENİ EKLENEN: SAYFA GÖRÜNÜM KONTROLLERİ ---
+            // --- SAYFA GÖRÜNÜM KONTROLLERİ ---
             const categoryCards = document.querySelectorAll('.category-card');
             
             categoryCards.forEach(card => {
                 card.addEventListener('click', () => {
                     const selectedCategory = card.getAttribute('data-category');
                     const title = card.getAttribute('data-title');
-                    
-                    // Başlığı Güncelle
                     currentCategoryTitle.innerText = title;
                     
-                    // Sadece seçili kategori ürünlerini göster
                     document.querySelectorAll('.menu-item').forEach(item => {
                         if (item.getAttribute('data-category') === selectedCategory) {
                             item.classList.remove('hidden-view');
@@ -513,7 +364,6 @@
                         }
                     });
 
-                    // Görünümleri değiştir
                     categoryView.classList.add('hidden-view');
                     productsView.classList.remove('hidden-view');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -527,7 +377,7 @@
             });
 
 
-            // 1. Veritabanından Çek
+            // Veritabanı işlemleri (Değişmedi)
             async function loadDataFromCloud() {
                 try {
                     const response = await fetch(dbUrl);
@@ -542,7 +392,6 @@
                 renderInitialProducts();
             }
 
-            // 2. Veritabanına Kaydet
             async function saveDataToCloud() {
                 const dataToSave = { customProducts, deletedProducts };
                 try {
@@ -552,7 +401,6 @@
                 }
             }
 
-            // 3. Ekrana Çizdirme
             function renderInitialProducts() {
                 const defaultItems = document.querySelectorAll('.menu-item');
                 defaultItems.forEach(item => {
@@ -562,11 +410,8 @@
                     const desc = descEl ? descEl.innerText : "";
                     const category = item.getAttribute('data-category');
 
-                    if (deletedProducts.includes(title)) {
-                        item.remove();
-                    } else {
-                        addAdminButtons(item, title, price, desc, category, false);
-                    }
+                    if (deletedProducts.includes(title)) { item.remove(); } 
+                    else { addAdminButtons(item, title, price, desc, category, false); }
                 });
 
                 customProducts.forEach(prod => {
@@ -574,12 +419,11 @@
                 });
             }
 
-            // 4. HTML Oluşturucu
             function createProductHTML(category, name, price, desc, isNew = false) {
                 const itemDiv = document.createElement('div');
                 itemDiv.className = 'menu-item';
                 itemDiv.setAttribute('data-category', category);
-                // Eğer ürünler görünümündeysek ve kategori eşleşmiyorsa, yeni eklenen ürünü gizle
+                
                 if (!productsView.classList.contains('hidden-view')) {
                      const currentActiveCategory = document.querySelector('.category-card[data-title="'+currentCategoryTitle.innerText+'"]').getAttribute('data-category');
                      if(category !== currentActiveCategory) itemDiv.classList.add('hidden-view');
@@ -588,10 +432,7 @@
                 }
                 
                 itemDiv.innerHTML = `
-                    <div class="item-header">
-                        <h3 class="item-title">${name}</h3>
-                        <span class="item-price">${price}</span>
-                    </div>
+                    <div class="item-header"><h3 class="item-title">${name}</h3><span class="item-price">${price}</span></div>
                     <p class="item-desc">${desc}</p>
                 `;
 
@@ -604,7 +445,6 @@
                 }
             }
 
-            // 5. Admin Butonlarını Ekleme
             function addAdminButtons(itemElement, name, price, desc, category, isCustom) {
                 const oldActions = itemElement.querySelector('.item-admin-actions');
                 if (oldActions) oldActions.remove();
@@ -647,7 +487,7 @@
 
             loadDataFromCloud();
 
-            // --- YÖNETİCİ PANELİ İŞLEMLERİ ---
+            // Yönetici Paneli İşlemleri
             const adminModal = document.getElementById('adminModal');
             
             function resetModal() {
@@ -685,7 +525,6 @@
                     element.querySelector('.item-price').innerText = price;
                     element.querySelector('.item-desc').innerText = desc;
                     
-                    // Kategorisi değiştiyse, aktif görünümde gizle/göster yap
                     if (!productsView.classList.contains('hidden-view')) {
                          const currentActiveCategory = document.querySelector('.category-card[data-title="'+currentCategoryTitle.innerText+'"]').getAttribute('data-category');
                          if(category !== currentActiveCategory) { element.classList.add('hidden-view'); } 
@@ -703,13 +542,12 @@
                 } else {
                     createProductHTML(category, name, price, desc, true);
                 }
-
                 saveDataToCloud();
                 resetModal();
             });
         });
         
-        // --- KARŞILAMA REKLAMINI KAPATMA İŞLEMİ ---
+        // Karşılama Reklamı
         const welcomeAdModal = document.getElementById('welcomeAdModal');
         const closeAdBtn = document.getElementById('closeAdBtn');
         if (welcomeAdModal && closeAdBtn) {
@@ -717,6 +555,6 @@
             welcomeAdModal.addEventListener('click', (e) => { if (e.target === welcomeAdModal) welcomeAdModal.style.display = 'none'; });
         }   
     </script>
-	<script defer src="/_vercel/insights/script.js"></script>
+    <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
