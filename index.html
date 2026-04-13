@@ -949,18 +949,48 @@
                 renderInitialProducts();
                 renderExtras();
             }
+async function saveDataToCloud() {
+    const dataToSave = {
+        customProducts,
+        deletedProducts,
+        customExtras,
+        deletedExtras
+    };
 
-            async function saveDataToCloud() {
-                const dataToSave = { customProducts, deletedProducts, customExtras, deletedExtras };
-                try {
-                    const response = await fetch(dbUrl, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dataToSave) });
-                    if (!response.ok) {
-                        alert("HATA: Veri çok büyük veya sunucu reddetti! Lütfen daha küçük bir fotoğraf seçin.");
-                    }
-                } catch (error) {
-                    alert("Veritabanı bağlantı hatası!");
-                }
-            }
+    try {
+        const jsonData = JSON.stringify(dataToSave);
+
+        console.log("dbUrl:", dbUrl);
+        console.log("Gönderilen veri:", dataToSave);
+        console.log("JSON boyutu:", jsonData.length);
+
+        const response = await fetch(dbUrl, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: jsonData
+        });
+
+        const responseText = await response.text();
+
+        console.log("Status:", response.status);
+        console.log("Response:", responseText);
+
+        if (!response.ok) {
+            alert(
+                "HATA!\nStatus: " + response.status +
+                "\nCevap: " + responseText
+            );
+            return;
+        }
+
+        alert("Kayıt başarılı!");
+    } catch (error) {
+        console.error("Bağlantı hatası:", error);
+        alert("Bağlantı hatası: " + error.message);
+    }
+}
 
             // --- EKSTRA (SOS/ATIŞTIRMALIK) RENDER İŞLEMLERİ ---
             function renderExtras() {
