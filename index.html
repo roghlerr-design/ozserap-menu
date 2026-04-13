@@ -715,13 +715,13 @@
 
             <div class="admin-form-group" id="dynamicOptionsGroup">
                 <label style="display:flex; justify-content:space-between; align-items:center;">
-                    Ürün Seçenekleri 
+                    Ürün Seçenekleri (Ad ve Fiyat)
                     <button type="button" id="addOptionBtn" style="background:#10b981; color:white; border:none; border-radius:4px; padding:4px 8px; cursor:pointer; font-size:0.75rem; font-weight:600;">+ Seçenek Ekle</button>
                 </label>
                 <div id="optionsContainer"></div>
             </div>
 
-            <div class="admin-form-group"><label>Ürün Genel İçeriği (En Alta Yazılır)</label><textarea id="newDesc" rows="3" placeholder="Örn: Ketçap, Mayonez..."></textarea></div>
+            <div class="admin-form-group"><label>Ürün Genel İçeriği (Opsiyonel - En Alta Yazılır)</label><textarea id="newDesc" rows="3" placeholder="Örn: Ketçap, Mayonez..."></textarea></div>
             <button class="admin-btn" id="saveProductBtn">Kaydet</button>
             <button class="admin-btn close-btn" id="closeAdminBtn">Vazgeç</button>
         </div>
@@ -735,13 +735,22 @@
             const container = document.getElementById('optionsContainer');
             const row = document.createElement('div');
             row.className = 'option-row';
+            row.style.display = 'flex';
+            row.style.flexDirection = 'column';
+            row.style.gap = '8px';
+            row.style.marginBottom = '12px';
+            row.style.padding = '10px';
+            row.style.border = '1px dashed rgba(16, 185, 129, 0.4)';
+            row.style.borderRadius = '10px';
+            row.style.background = 'rgba(255, 255, 255, 0.4)';
+
             row.innerHTML = `
-                <div class="option-row-top">
-                    <input type="text" class="opt-name" placeholder="Ürün Adı (Örn: Karışık Tost)" value="${nameVal}" style="flex: 2;">
-                    <input type="text" class="opt-price" placeholder="Fiyat (Örn: 80 TL)" value="${priceVal}" style="flex: 1;">
-                    <button type="button" class="remove-opt-btn">X</button>
+                <div style="display:flex; gap:8px;">
+                    <input type="text" class="opt-name" placeholder="Ürün Adı (Örn: Karışık Tost)" value="${nameVal}" style="flex: 2; padding: 10px; border: 1px solid rgba(255,255,255,0.6); border-radius: 8px; outline:none; font-family: 'Poppins', sans-serif;">
+                    <input type="text" class="opt-price" placeholder="Fiyat (Örn: 80 TL)" value="${priceVal}" style="flex: 1; padding: 10px; border: 1px solid rgba(255,255,255,0.6); border-radius: 8px; outline:none; font-family: 'Poppins', sans-serif;">
+                    <button type="button" class="remove-opt-btn" style="background:#ef4444; color:white; border:none; border-radius:8px; cursor:pointer; padding:0 12px; font-weight:bold;">X</button>
                 </div>
-                <input type="text" class="opt-desc" placeholder="Bu seçeneğe özel içerik (İsteğe Bağlı)" value="${descVal}">
+                <input type="text" class="opt-desc" placeholder="Bu seçeneğe özel içerik (İsteğe Bağlı)" value="${descVal}" style="width: 100%; padding: 10px; font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.6); background: rgba(255,255,255,0.5); border-radius: 8px; font-family: 'Poppins', sans-serif; outline: none; box-sizing: border-box;">
             `;
             row.querySelector('.remove-opt-btn').addEventListener('click', () => {
                 if (container.children.length > 1) {
@@ -756,7 +765,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             
             // Seçenek butonuna tıklanınca satır ekleme olayı
-            document.getElementById('addOptionBtn').addEventListener('click', () => addOptionRow());
+            document.getElementById('addOptionBtn').addEventListener('click', () => addOptionRow('', '', ''));
             
             // --- DARK MODE (KOYU TEMA) İŞLEMLERİ ---
             const themeToggleBtn = document.getElementById('themeToggle');
@@ -880,14 +889,42 @@
                 if (e.target === snackModal) snackModal.style.display = 'none'; 
             });
 
-            // --- FOTOĞRAF YÜKLEME (BASE64) ---
+            // --- FOTOĞRAF YÜKLEME (BASE64 + SIKIŞTIRMA) ---
             let uploadedImageBase64 = null;
             document.getElementById('newImageFile').addEventListener('change', function(e) {
                 const file = e.target.files[0];
                 if (file) {
                     const reader = new FileReader();
                     reader.onload = function(evt) {
-                        uploadedImageBase64 = evt.target.result;
+                        // Tarayıcı içinde fotoğrafı küçültme (Canvas ile)
+                        const img = new Image();
+                        img.onload = function() {
+                            const canvas = document.createElement('canvas');
+                            const MAX_WIDTH = 800; // Genişlik Sınırı
+                            const MAX_HEIGHT = 800; // Yükseklik Sınırı
+                            let width = img.width;
+                            let height = img.height;
+
+                            if (width > height) {
+                                if (width > MAX_WIDTH) {
+                                    height *= MAX_WIDTH / width;
+                                    width = MAX_WIDTH;
+                                }
+                            } else {
+                                if (height > MAX_HEIGHT) {
+                                    width *= MAX_HEIGHT / height;
+                                    height = MAX_HEIGHT;
+                                }
+                            }
+                            canvas.width = width;
+                            canvas.height = height;
+                            const ctx = canvas.getContext('2d');
+                            ctx.drawImage(img, 0, 0, width, height);
+                            
+                            // %70 kalite ile JPEG'e çevir
+                            uploadedImageBase64 = canvas.toDataURL('image/jpeg', 0.7);
+                        }
+                        img.src = evt.target.result;
                     };
                     reader.readAsDataURL(file);
                 } else {
@@ -901,7 +938,6 @@
                     const response = await fetch(dbUrl);
                     const data = await response.json();
                     if (data) {
-                        // Firebase Array -> Object dönüşüm hatasına karşı
                         customProducts = data.customProducts ? (Array.isArray(data.customProducts) ? data.customProducts : Object.values(data.customProducts)) : [];
                         deletedProducts = data.deletedProducts ? (Array.isArray(data.deletedProducts) ? data.deletedProducts : Object.values(data.deletedProducts)) : [];
                         customExtras = data.customExtras ? (Array.isArray(data.customExtras) ? data.customExtras : Object.values(data.customExtras)) : [];
@@ -917,7 +953,10 @@
             async function saveDataToCloud() {
                 const dataToSave = { customProducts, deletedProducts, customExtras, deletedExtras };
                 try {
-                    await fetch(dbUrl, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dataToSave) });
+                    const response = await fetch(dbUrl, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dataToSave) });
+                    if (!response.ok) {
+                        alert("HATA: Veri çok büyük veya sunucu reddetti! Lütfen daha küçük bir fotoğraf seçin.");
+                    }
                 } catch (error) {
                     alert("Veritabanı bağlantı hatası!");
                 }
@@ -1070,7 +1109,7 @@
                 itemDiv.innerHTML = `
                     <div class="item-img-container"><img src="${finalImage}" class="item-img" alt="${safeOptions.length > 0 ? safeOptions[0].name : 'Urun'}" loading="lazy"></div>
                     ${headersHtml}
-                    <p class="item-desc main-desc-text">${desc}</p>
+                    <p class="item-desc main-desc-text">${desc || ''}</p>
                 `;
 
                 addAdminButtons(itemDiv, true);
@@ -1117,14 +1156,13 @@
                         
                         let nextEl = h.nextElementSibling;
                         if (nextEl && nextEl.tagName === 'P' && nextEl.classList.contains('item-desc')) {
-                            // Sadece seçeneğe özel eklenmiş bir içerik mi kontrol et
+                            // Eğer opt-desc-text ise özel içeriktir.
                             if (nextEl.classList.contains('opt-desc-text')) {
                                 optD = nextEl.innerText;
                             } else if (!mainDescEl && headers.length > 1) {
-                                // Default (eski html) olarak çoklu seçenek var ise
+                                // Default html'de çoklu olanlar genelde alt altaydı
                                 optD = nextEl.innerText;
                             } else if (!mainDescEl && headers.length === 1) {
-                                // Default html tek seçenekli ürün genel içeriği
                                 generalDesc = nextEl.innerText;
                             }
                         }
