@@ -98,9 +98,29 @@
         /* --- GÖRÜNÜM KONTROLLERİ --- */
         .hidden-view { display: none !important; }
         
-        .back-btn { background: rgba(255, 255, 255, 0.6); border: 1px solid rgba(255,255,255,0.8); padding: 10px 20px; border-radius: 50px; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 600; color: #334155; margin-bottom: 20px; display: inline-flex; align-items: center; gap: 8px; backdrop-filter: blur(10px); transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .back-btn:hover { background: rgba(255, 255, 255, 0.9); color: #0f172a; transform: translateX(-3px); }
+        /* GERİ BUTONU STİLLERİ */
+        .back-btn { background: rgba(255, 255, 255, 0.85); border: 1px solid rgba(255,255,255,0.8); padding: 10px 20px; border-radius: 50px; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 600; color: #334155; margin-bottom: 20px; display: inline-flex; align-items: center; gap: 8px; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .back-btn:hover { background: rgba(255, 255, 255, 1); color: #0f172a; transform: translateX(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+        /* -------------------------------------- */
+
         .current-category-title { font-size: 1.5rem; color: #0f172a; margin: 0 0 20px 0; border-bottom: 2px solid rgba(16, 185, 129, 0.3); padding-bottom: 10px; display: inline-block; transition: 0.3s;}
+
+        /* --- SOSLAR/ATIŞTIRMALIKLAR ÖZEL STİLLER --- */
+        .sauce-row {
+            display: flex; flex-direction: column; justify-content: center;
+            padding: 12px; background: rgba(255, 255, 255, 0.4); border-radius: 12px;
+            margin-bottom: 8px; font-weight: 500; transition: 0.3s; border: 1px solid rgba(255,255,255,0.2);
+        }
+        .sauce-content { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .extra-admin-actions { display: none; gap: 8px; margin-top: 10px; border-top: 1px dashed rgba(0,0,0,0.1); padding-top: 10px; }
+        body.admin-mode .extra-admin-actions { display: flex; justify-content: flex-end; }
+        .extra-edit-btn, .extra-delete-btn { padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; cursor: pointer; border: none; font-weight: 600; }
+        .extra-edit-btn { background: rgba(14, 165, 233, 0.2); color: #0284c7; }
+        .extra-delete-btn { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        body.dark-mode .sauce-row { background: rgba(255, 255, 255, 0.05); }
+        .sauce-row:hover { background: rgba(16, 185, 129, 0.1); }
+        .add-extra-btn { display: none; background: #0ea5e9; color: white; border: none; padding: 10px; border-radius: 12px; cursor: pointer; width: 100%; font-weight: 600; margin-top: 10px; }
+        body.admin-mode .add-extra-btn { display: block; }
 
         /* --- MENÜ KARTLARI VE RESİMLER --- */
         .menu-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
@@ -108,28 +128,26 @@
         .menu-item:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(31, 38, 135, 0.1); background: rgba(255, 255, 255, 0.5); }
         .menu-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: linear-gradient(to bottom, #10b981, #38bdf8); border-radius: 20px 0 0 20px; }
         
-       /* Mevcut .item-img stilini bununla değiştir */
-.item-img { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; /* Görseli kutuya yayar, boşluk bırakmaz */
-    object-position: center 70%; /* Dikey görselde pizzaya (alt kısma) odaklanır */
-    transition: transform 0.4s ease; 
-}
+        .item-img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            object-position: center 70%; 
+            transition: transform 0.4s ease; 
+        }
 
-/* Görselin göründüğü alanı biraz daha büyütmek istersen: */
-.item-img-container { 
-    width: 100%; 
-    height: 220px; /* 180px'den 220px'e çıkardık, dikey fotoğraf daha iyi görünür */
-    border-radius: 12px; 
-    overflow: hidden; 
-    margin-bottom: 15px; 
-    flex-shrink: 0; 
-    background-color: rgba(255,255,255,0.3); 
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
-}
+        .item-img-container { 
+            width: 100%; 
+            height: 220px; 
+            border-radius: 12px; 
+            overflow: hidden; 
+            margin-bottom: 15px; 
+            flex-shrink: 0; 
+            background-color: rgba(255,255,255,0.3); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+        }
 
         .item-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; gap: 10px; }
         .item-title { font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 0; line-height: 1.3; transition: 0.3s;}
@@ -152,6 +170,11 @@
         .admin-form-group { margin-bottom: 15px; }
         .admin-form-group label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 0.85rem; color: #334155;}
         .admin-form-group input, .admin-form-group select, .admin-form-group textarea { width: 100%; padding: 12px; border: 1px solid rgba(255,255,255,0.6); background: rgba(255,255,255,0.5); border-radius: 12px; box-sizing: border-box; font-family: 'Poppins', sans-serif; outline: none; transition: 0.3s;}
+        
+        /* Dosya yükleme inputu özel stili */
+        input[type="file"] { padding: 8px; background: rgba(255, 255, 255, 0.8); cursor: pointer; }
+        input[type="file"]::file-selector-button { background: #10b981; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; margin-right: 10px; font-weight: 600;}
+        
         .admin-form-group input:focus, .admin-form-group select:focus, .admin-form-group textarea:focus { background: rgba(255,255,255,0.8); border-color: #10b981; }
         .admin-btn { background: #10b981; color: white; border: none; padding: 12px; border-radius: 12px; cursor: pointer; width: 100%; font-weight: 600; margin-bottom: 10px;}
         .close-btn { background: rgba(100, 116, 139, 0.2); color: #334155; }
@@ -197,8 +220,9 @@
         body.dark-mode .category-card:hover { background: rgba(30, 41, 59, 0.8); }
         body.dark-mode .category-card h3 { color: #f8fafc; }
 
-        body.dark-mode .back-btn { background: rgba(30, 41, 59, 0.6); color: #f8fafc; border-color: rgba(255,255,255,0.1); }
-        body.dark-mode .back-btn:hover { background: rgba(30, 41, 59, 0.9); }
+        body.dark-mode .back-btn { background: rgba(30, 41, 59, 0.85); color: #f8fafc; border-color: rgba(255,255,255,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        body.dark-mode .back-btn:hover { background: rgba(30, 41, 59, 1); transform: translateX(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
+
         body.dark-mode .current-category-title { color: #f8fafc; border-bottom-color: rgba(52, 211, 153, 0.3); }
 
         body.dark-mode .menu-item { background: rgba(30, 41, 59, 0.5); border-color: rgba(255,255,255,0.1); }
@@ -274,14 +298,33 @@
                 <div class="icon">☕</div>
                 <h3>Yeni Nesil Kahve</h3>
             </div>
+            <div class="category-card" data-category="kahvalti" data-title="Kahvaltılıklar">
+                <div class="icon">🍳</div>
+                <h3>Kahvaltılıklar</h3>
+            </div>
         </div>
     </div>
 
     <div class="container hidden-view" id="productsView">
-        <button class="back-btn" id="backToCategoriesBtn">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-            Kategorilere Dön
-        </button>
+        
+        <div style="position: sticky; top: 125px; z-index: 40; display: flex; gap: 10px; margin-bottom: 20px; align-items: center; flex-wrap: wrap;">
+            <button class="back-btn" id="backToCategoriesBtn" style="position: relative; top: auto; margin-bottom: 0; z-index: 40;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                Kategorilere Dön
+            </button>
+            
+            <div id="sauceTriggerContainer" class="hidden-view" style="z-index: 40;">
+                <button id="openSauceBtn" class="back-btn" style="position: relative; top: auto; background: rgba(16, 185, 129, 0.15); color: #059669; border-color: rgba(16, 185, 129, 0.3); margin-bottom: 0;">
+                    ✨ Sos Seçenekleri
+                </button>
+            </div>
+
+            <div id="snackTriggerContainer" class="hidden-view" style="z-index: 40;">
+                <button id="openSnackBtn" class="back-btn" style="position: relative; top: auto; background: rgba(245, 158, 11, 0.15); color: #d97706; border-color: rgba(245, 158, 11, 0.3); margin-bottom: 0;">
+                    🍪 Atıştırmalıklar
+                </button>
+            </div>
+        </div>
         <h2 class="current-category-title" id="currentCategoryTitle">Kategori Adı</h2>
         
         <div class="menu-grid" id="menuGrid">
@@ -292,23 +335,29 @@
                 <p class="item-desc">Gurme Susamlı Burger Ekmeği %100 Dana Köfte, Marul, Domates, Cheddar ve Burger Sos</p>
             </div>
             <div class="menu-item" data-category="doyuran">
-                <div class="item-img-container"><img src="makarna.png" class="item-img" alt="ALAVARA MAKARNA"></div>
-                <div class="item-header"><h3 class="item-title">ALAVARA MAKARNA</h3><span class="item-price">140 TL</span></div>
+                <div class="item-img-container"><img src="makarna.png" class="item-img" alt="ALAVARA MAKARNA"></div> 
+                <div class="item-header"><h3 class="item-title">ALAVARA MAKARNA  </h3><span class="item-price">140 TL </span> </div>
+                <div class="item-header"><h3 class="item-title">1 BUÇUK PORSİYON </h3><span class="item-price">210 TL </span> </div>
                 <p class="item-desc">Linguine Makarna Üzerine Napoliten Sos, Mısır, Kaşar Peyniri, Kekik</p>
             </div>
             <div class="menu-item" data-category="doyuran">
                 <div class="item-img-container"><img src="tost.png" class="item-img" alt="KARIŞIK KANTİN TOST"></div>
                 <div class="item-header"><h3 class="item-title">KARIŞIK KANTİN TOST</h3><span class="item-price">100 TL</span></div>
                 <p class="item-desc">Sucuk, Kaşar Peyniri, Domates, Salça, Ketçap ve Mayonez</p>
+                 <div class="item-header"><h3 class="item-title">BOL KAŞARLI TOST</h3><span class="item-price">110 TL</span></div>
+                 <div class="item-header"><h3 class="item-title">SOSİSLİ KARIŞIK TOST</h3><span class="item-price">120 TL</span></div>
+                 <p class="item-desc">Sosis,Sucuk, Kaşar Peyniri, Domates, Salça, Ketçap ve Mayonez</p>
             </div>
             <div class="menu-item" data-category="doyuran">
                 <div class="item-img-container"><img src="patso.png" class="item-img" alt="PATSO"></div>
                 <div class="item-header"><h3 class="item-title">PATSO</h3><span class="item-price">125 TL</span></div>
+                <div class="item-header"><h3 class="item-title">BOL PATSO </h3><span class="item-price">175 TL </span> </div>
                 <p class="item-desc">Ekmek Arası Patates Kızartması, Sosis, Kaşar Peyniri, Ketçap ve Mayonez</p>
             </div>
             <div class="menu-item" data-category="doyuran">
                 <div class="item-img-container"><img src="manti.png" class="item-img" alt="ETLİ MANTI"></div>
-                <div class="item-header"><h3 class="item-title">ETLİ MANTI</h3><span class="item-price">150 TL</span></div>
+                <div class="item-header"><h3 class="item-title">ETLİ MANTI </h3><span class="item-price">150 TL</span></div>
+                <div class="item-header"><h3 class="item-title">1 BUÇUK PORSİYON </h3><span class="item-price">250 TL </span> </div>
                 <p class="item-desc">Dana Etli Orijinal Mantı, Yoğurt ve Mantı sosu</p>
             </div>
             <div class="menu-item" data-category="doyuran">
@@ -324,11 +373,13 @@
             <div class="menu-item" data-category="doyuran">
                 <div class="item-img-container"><img src="kofteekmek.png" class="item-img" alt="KÖFTE EKMEK"></div>
                 <div class="item-header"><h3 class="item-title">KÖFTE EKMEK</h3><span class="item-price">150 TL</span></div>
+                <div class="item-header"><h3 class="item-title">BOL KÖFTE EKMEK </h3><span class="item-price">225 TL </span> </div>
                 <p class="item-desc">Ekmek Arası %100 Dana köfte, Domates, Sumaklı Soğan</p>
             </div>
             <div class="menu-item" data-category="doyuran">
                 <div class="item-img-container"><img src="patates.png" class="item-img" alt="PORSİYON PATATES"></div>
-                <div class="item-header"><h3 class="item-title">PORSİYON PATATES</h3><span class="item-price">100 TL</span></div>
+                <div class="item-header"><h3 class="item-title">PORSİYON PATATES  </h3><span class="item-price">100 TL </span></div>
+                <div class="item-header"><h3 class="item-title">1 BUÇUK PORSİYON </h3><span class="item-price">150 TL </span> </div>
                 <p class="item-desc">Kajun Baharatı, Kızarmış Patates, Ketçap, Mayonez</p>
             </div>
 
@@ -338,7 +389,17 @@
             </div>
             <div class="menu-item" data-category="sicak">
                 <div class="item-img-container"><img src="dublecay.png" class="item-img" alt="DUBLE ÇAY"></div>
-                <div class="item-header"><h3 class="item-title">DUBLE ÇAY</h3><span class="item-price">30 TL</span></div><p class="item-desc"></p>
+                <div class="item-header"><h3 class="item-title">DOUBLE ÇAY</h3><span class="item-price">30 TL</span></div><p class="item-desc"></p>
+            </div>
+            <div class="menu-item" data-category="sicak">
+                <div class="item-img-container"><img src="bitkicayi.png" class="item-img" alt="BİTKİ ÇAYLARI"></div>
+                <div class="item-header"><h3 class="item-title">BİTKİ ÇAYLARI</h3><span class="item-price">40 TL</span></div><p class="item-desc"></p>
+                  <p class="item-desc">Papatya , adaçayı,ıhlamur,kiraz sapı,kuşburnu,ıhlamur harmanı , yeşilçay limon , yeşilçay mango ananas , yeşilçay , rezene ,özelgün,zencefil limonlu bitkiçayı , </p>
+            </div>
+            <div class="menu-item" data-category="sicak">
+                <div class="item-img-container"><img src="oralet.png" class="item-img" alt="ORALET"></div>
+                <div class="item-header"><h3 class="item-title">ORALET</h3><span class="item-price">15 TL</span></div><p class="item-desc"></p>
+                  <p class="item-desc">Karadut, Kivi , Portakal </p>
             </div>
             <div class="menu-item" data-category="sicak">
                 <div class="item-img-container"><img src="turkkahvesi.png" class="item-img" alt="TÜRK KAHVESİ"></div>
@@ -346,20 +407,42 @@
             </div>
             <div class="menu-item" data-category="sicak">
                 <div class="item-img-container"><img src="dubleturkkahvesi.png" class="item-img" alt="DUBLE TÜRK KAHVESİ"></div>
-                <div class="item-header"><h3 class="item-title">DUBLE TÜRK KAHVESİ</h3><span class="item-price">95 TL</span></div><p class="item-desc"></p>
+                <div class="item-header"><h3 class="item-title">DOUBLE TÜRK KAHVESİ</h3><span class="item-price">95 TL</span></div><p class="item-desc"></p>
+            </div>
+            <div class="menu-item" data-category="sicak">
+                <div class="item-img-container"><img src="sutlukahve.png" class="item-img" alt="SÜTLÜ KAHVE"></div>
+                <div class="item-header"><h3 class="item-title">SÜTLÜ KAHVE</h3><span class="item-price">70 TL</span></div><p class="item-desc"></p>
             </div>
             <div class="menu-item" data-category="sicak">
                 <div class="item-img-container"><img src="nescafe.png" class="item-img" alt="NESCAFE"></div>
-                <div class="item-header"><h3 class="item-title">NESCAFE</h3><span class="item-price">40 TL</span></div><p class="item-desc"></p>
+                <div class="item-header"><h3 class="item-title">GRANÜL KAHVE</h3><span class="item-price">40 TL</span></div><p class="item-desc"></p>
+                 <div class="item-header"><h3 class="item-title">DOUBLE GRANÜL KAHVE</h3><span class="item-price">80 TL</span></div><p class="item-desc"></p>
             </div>
             <div class="menu-item" data-category="sicak">
                 <div class="item-img-container"><img src="sutlukopuklu.png" class="item-img" alt="SÜTLÜ KÖPÜKLÜ"></div>
                 <div class="item-header"><h3 class="item-title">SÜTLÜ KÖPÜKLÜ</h3><span class="item-price">45 TL</span></div><p class="item-desc"></p>
+                 <div class="item-header"><h3 class="item-title">DOUBLE SÜTLÜ KÖPÜKLÜ </h3><span class="item-price">90 TL</span></div><p class="item-desc"></p>
             </div>
-
+			<div class="menu-item" data-category="sicak">
+                <div class="item-img-container"><img src="fındıklıkahve.png" class="item-img" alt="SÜTLÜ KÖPÜKLÜ"></div>
+                <div class="item-header"><h3 class="item-title">NESCAFE FINDIKLI</h3><span class="item-price">45 TL</span></div><p class="item-desc"></p>
+                 <div class="item-header"><h3 class="item-title">DOUBLE NESCAFE FINDIKLI </h3><span class="item-price">90 TL</span></div><p class="item-desc"></p>
+            </div>
+			 <div class="menu-item" data-category="sicak">
+                <div class="item-img-container"><img src="salep.png" class="item-img" alt="SÜTLÜ KAHVE"></div>
+                <div class="item-header"><h3 class="item-title">SALEP</h3><span class="item-price">50 TL</span></div><p class="item-desc"></p>
+            </div>
             <div class="menu-item" data-category="soguk">
-                <div class="item-img-container"><img src="su.png" class="item-img" alt="SU"></div>
-                <div class="item-header"><h3 class="item-title">SU</h3><span class="item-price">15 TL</span></div><p class="item-desc"></p>
+                <div class="item-img-container"><img src="limonata.png" class="item-img" alt="LİMONATA"></div>
+                <div class="item-header"><h3 class="item-title">LİMONATA</h3><span class="item-price">45 TL</span></div><p class="item-desc"></p>
+            </div>
+            <div class="menu-item" data-category="soguk">
+                <div class="item-img-container"><img src="churchill.png" class="item-img" alt="CHURCHİLL"></div>
+                <div class="item-header"><h3 class="item-title">CHURCHİLL</h3><span class="item-price">65 TL</span></div><p class="item-desc"></p>
+            </div>
+            <div class="menu-item" data-category="soguk">
+                <div class="item-img-container"><img src="salgam.png" class="item-img" alt="SU"></div>
+                <div class="item-header"><h3 class="item-title">ŞALGAM</h3><span class="item-price">15 TL</span></div><p class="item-desc"></p>
             </div>
             <div class="menu-item" data-category="soguk">
                 <div class="item-img-container"><img src="ayran.png" class="item-img" alt="AYRAN"></div>
@@ -374,6 +457,19 @@
                 <div class="item-header"><h3 class="item-title">MEYVELİ MADEN SUYU</h3><span class="item-price">25 TL</span></div><p class="item-desc"></p>
             </div>
             <div class="menu-item" data-category="soguk">
+                <div class="item-img-container"><img src="camlica.png" class="item-img" alt="MEYVELİ MADEN SUYU"></div>
+                <div class="item-header"><h3 class="item-title">ÇAMLICA PORTAKAL</h3><span class="item-price">30 TL</span></div><p class="item-desc"></p>
+            </div>
+            <div class="menu-item" data-category="soguk">
+                <div class="item-img-container"><img src="beylerbeyi.png" class="item-img" alt="MEYVELİ MADEN SUYU"></div>
+                <div class="item-header"><h3 class="item-title">BEYLERBEYİ GAZOZ</h3><span class="item-price">35 TL</span></div><p class="item-desc"></p>
+            </div>
+             <div class="menu-item" data-category="soguk">
+                <div class="item-img-container"><img src="sprite.png" class="item-img" alt="SÜTLÜ KÖPÜKLÜ"></div>
+                <div class="item-header"><h3 class="item-title">SPRITE 200 ML</h3><span class="item-price">50 TL</span></div>
+                <div class="item-header"><h3 class="item-title">SPRITE 330 ML</h3><span class="item-price">65 TL</span></div>
+            </div>
+            <div class="menu-item" data-category="soguk">
                 <div class="item-img-container"><img src="cocacola.png" class="item-img" alt="COCA COLA CAM ŞİŞE"></div>
                 <div class="item-header"><h3 class="item-title">COCA COLA CAM ŞİŞE</h3><span class="item-price">50 TL</span></div><p class="item-desc"></p>
             </div>
@@ -386,51 +482,84 @@
                 <div class="item-header"><h3 class="item-title">NİĞDE GAZOZU</h3><span class="item-price">35 TL</span></div><p class="item-desc"></p>
             </div>
             <div class="menu-item" data-category="soguk">
-                <div class="item-img-container"><img src="icetea.png" class="item-img" alt="ICE TEA 200 ML"></div>
-                <div class="item-header"><h3 class="item-title">ICE TEA 200 ML</h3><span class="item-price">50 TL</span></div><p class="item-desc"></p>
-				 <div class="item-header"><h3 class="item-title">ICE TEA 330 ML</h3><span class="item-price">60 TL</span></div><p class="item-desc"></p>
+                <div class="item-img-container"><img src="maltana.png" class="item-img" alt="NİĞDE GAZOZU"></div>
+                <div class="item-header"><h3 class="item-title">MALTANA</h3><span class="item-price">55 TL</span></div><p class="item-desc"></p>
             </div>
             
             <div class="menu-item" data-category="soguk">
-                <div class="item-img-container"><img src="caprisun.png" class="item-img" alt="CAPRİ-SUN"></div>
-                <div class="item-header"><h3 class="item-title">CAPRİ-SUN</h3><span class="item-price">35 TL</span></div><p class="item-desc"></p>
+                <div class="item-img-container"><img src="powerade.png" class="item-img" alt="NİĞDE GAZOZU"></div>
+                <div class="item-header"><h3 class="item-title">POWERADE</h3><span class="item-price">65 TL</span></div><p class="item-desc"></p>
             </div>
             <div class="menu-item" data-category="soguk">
                 <div class="item-img-container"><img src="nescafesoguk.png" class="item-img" alt="NESCAFE SOĞUK KAHVE"></div>
                 <div class="item-header"><h3 class="item-title">NESCAFE SOĞUK KAHVE</h3><span class="item-price">80 TL</span></div><p class="item-desc"></p>
             </div>
-			<div class="menu-item" data-category="soguk">
-                <div class="item-img-container"><img src="limonata.png" class="item-img" alt="LİMONATA"></div>
-                <div class="item-header"><h3 class="item-title">LİMONATA</h3><span class="item-price">45 TL</span></div><p class="item-desc"></p>
+            <div class="menu-item" data-category="soguk">
+                <div class="item-img-container"><img src="frutti.png" class="item-img" alt="SU"></div>
+                <div class="item-header"><h3 class="item-title">FRUTTI EXTRA</h3><span class="item-price">25 TL</span></div><p class="item-desc"></p> 
+                <p class="item-desc">Yeşil limonlu , Kavunlu , Mandalinalı , Armutlu, Orman meyveli</p>
             </div>
-			<div class="menu-item" data-category="soguk">
-                <div class="item-img-container"><img src="churchill.png" class="item-img" alt="CHURCHİLL"></div>
-                <div class="item-header"><h3 class="item-title">CHURCHİLL</h3><span class="item-price">65 TL</span></div><p class="item-desc"></p>
+            <div class="menu-item" data-category="soguk">
+                <div class="item-img-container"><img src="icetea.png" class="item-img" alt="ICE TEA 200 ML"></div>
+                <div class="item-header"><h3 class="item-title">ICE TEA 200 ML</h3><span class="item-price">50 TL</span></div><p class="item-desc"></p>
+                 <div class="item-header"><h3 class="item-title">ICE TEA 330 ML </h3><span class="item-price">65 TL</span></div><p class="item-desc"></p>  
+                <p class="item-desc">Mango ananas, limon , şeftali,karpuz,kavun ve çilek</p>
+            </div>
+            <div class="menu-item" data-category="soguk">
+                <div class="item-img-container"><img src="dimes.png" class="item-img" alt="CAPRİ-SUN"></div>
+                <div class="item-header"><h3 class="item-title">DİMES MEYVESUYU</h3><span class="item-price">25 TL</span></div><p class="item-desc"> 
+                <p class="item-desc">Şeftali , Kayısı , Vişne , Karışık</p>
+            </div>
+            
+            <div class="menu-item" data-category="soguk">
+                <div class="item-img-container"><img src="caprisun.png" class="item-img" alt="CAPRİ-SUN"></div>
+                <div class="item-header"><h3 class="item-title">CAPRİ-SUN</h3><span class="item-price">35 TL</span></div><p class="item-desc"> 
+                <p class="item-desc">Safari , Dragon</p>
+            </div>
+			 <div class="menu-item" data-category="soguk">
+                <div class="item-img-container"><img src="bubble.png" class="item-img" alt="CAPRİ-SUN"></div>
+                <div class="item-header"><h3 class="item-title">CAPPY BUBBLE </h3><span class="item-price"> 70TL</span></div><p class="item-desc"> 
+                <p class="item-desc">Ejder meyvesi ve çilek , Ananas ve mango</p>
+            </div>
+            
+             <div class="menu-item" data-category="soguk">
+                <div class="item-img-container"><img src="buzlu.png" class="item-img" alt="SU"></div>
+                <div class="item-header"><h3 class="item-title">BUZLU BARDAK</h3><span class="item-price">25 TL</span></div><p class="item-desc"></p>
+            </div>
+            
+             <div class="menu-item" data-category="soguk">
+                <div class="item-img-container"><img src="su.png" class="item-img" alt="SU"></div>
+                <div class="item-header"><h3 class="item-title">SU</h3><span class="item-price">15 TL</span></div><p class="item-desc"></p>
             </div>
 
             <div class="menu-item" data-category="pizza">
                 <div class="item-img-container"><img src="karısıkpizza.png" class="item-img" alt="KARIŞIK PİZZA"></div>
-                <div class="item-header"><h3 class="item-title">KARIŞIK PİZZA</h3><span class="item-price">K:245 | B: 255</span></div>
+                <div class="item-header"><h3 class="item-title">KARIŞIK PİZZA (KÜÇÜK)</h3><span class="item-price">245 TL</span></div>
+                <div class="item-header"><h3 class="item-title">KARIŞIK PİZZA (BÜYÜK)</h3><span class="item-price">255 TL</span></div>
                 <p class="item-desc">Pizza Sosu, Mozarella, Sucuk, Salam, Mantar, Mısır, Yeşil Biber</p>
             </div>
             <div class="menu-item" data-category="pizza">
                 <div class="item-img-container"><img src="mexicanpizza.png" class="item-img" alt="MEXICAN PİZZA"></div>
-                <div class="item-header"><h3 class="item-title">MEXICAN PİZZA</h3><span class="item-price">K: 255 | B: 265</span></div>
+                <div class="item-header"><h3 class="item-title">MEXICAN PİZZA (KÜÇÜK)</h3><span class="item-price">255 TL</span></div>
+                <div class="item-header"><h3 class="item-title">MEXICAN PİZZA (BÜYÜK)</h3><span class="item-price">265 TL</span></div>
                 <p class="item-desc">Pizza Sosu, Sucuk, Mantar, Köz Biber, Jalapeno</p>
             </div>
             <div class="menu-item" data-category="pizza">
                 <div class="item-img-container"><img src="sebzelipizza.png" class="item-img" alt="SEBZELİ PİZZA"></div>
-                <div class="item-header"><h3 class="item-title">SEBZELİ PİZZA</h3><span class="item-price">K: 235 | B: 250</span></div>
+                <div class="item-header"><h3 class="item-title">SEBZELİ PİZZA (KÜÇÜK)</h3><span class="item-price">235 TL</span></div>
+                <div class="item-header"><h3 class="item-title">SEBZELİ PİZZA (BÜYÜK)</h3><span class="item-price">250 TL</span></div>
                 <p class="item-desc">Pizza Sosu, Mantar, Mozarella, Köz Biber, Yeşil Biber, Zeytin, Mısır</p>
             </div>
             <div class="menu-item" data-category="pizza">
                 <div class="item-img-container"><img src="margaritapizza.png" class="item-img" alt="MARGARİTA PİZZA"></div>
-                <div class="item-header"><h3 class="item-title">MARGARİTA PİZZA</h3><span class="item-price">K: 235 | B: 250</span></div>
+                <div class="item-header"><h3 class="item-title">MARGARİTA PİZZA (KÜÇÜK)</h3><span class="item-price">235 TL</span></div>
+                <div class="item-header"><h3 class="item-title">MARGARİTA PİZZA (BÜYÜK)</h3><span class="item-price">250 TL</span></div>
                 <p class="item-desc">Pizza Sosu, Mozarella</p>
             </div>
             <div class="menu-item" data-category="pizza">
                 <div class="item-img-container"><img src="extrapizza.png" class="item-img" alt="EXTRA PİZZA"></div>
-                <div class="item-header"><h3 class="item-title">EXTRA PİZZA</h3><span class="item-price">K: 250 | B: 260</span></div>
+                <div class="item-header"><h3 class="item-title">EXTRA PİZZA (KÜÇÜK)</h3><span class="item-price">250 TL</span></div>
+                <div class="item-header"><h3 class="item-title">EXTRA PİZZA (BÜYÜK)</h3><span class="item-price">260 TL</span></div>
                 <p class="item-desc">Pizza Sosu, Mozarella, Sucuk, Salam, Sosis</p>
             </div>
             <div class="menu-item" data-category="pizza">
@@ -443,9 +572,14 @@
                 <div class="item-img-container"><img src="espresso.png" class="item-img" alt="ESPRESSO"></div>
                 <div class="item-header"><h3 class="item-title">ESPRESSO</h3><span class="item-price">50 TL</span></div><p class="item-desc"></p>
             </div>
+             <div class="menu-item" data-category="kahve">
+                <div class="item-img-container"><img src="lungo.png" class="item-img" alt="ESPRESSO"></div>
+                <div class="item-header"><h3 class="item-title">LUNGO</h3><span class="item-price">70 TL</span></div><p class="item-desc"></p>
+            </div>
             <div class="menu-item" data-category="kahve">
                 <div class="item-img-container"><img src="americano.png" class="item-img" alt="AMERICANO / ICED AMERICANO"></div>
-                <div class="item-header"><h3 class="item-title">AMERICANO / ICED AMERICANO</h3><span class="item-price">70 TL</span></div><p class="item-desc"></p>
+                <div class="item-header"><h3 class="item-title">AMERICANO </h3><span class="item-price">70 TL</span></div><p class="item-desc"></p>
+				  <div class="item-header"><h3 class="item-title">ICED AMERICANO  </h3><span class="item-price">90 TL</span></div><p class="item-desc"></p>
             </div>
             <div class="menu-item" data-category="kahve">
                 <div class="item-img-container"><img src="sıcakcikolata.png" class="item-img" alt="SICAK ÇİKOLATA"></div>
@@ -453,25 +587,86 @@
             </div>
             <div class="menu-item" data-category="kahve">
                 <div class="item-img-container"><img src="caramellatte.png" class="item-img" alt="CARAMEL LATTE"></div>
-                <div class="item-header"><h3 class="item-title">CARAMEL LATTE</h3><span class="item-price">70 TL</span></div><p class="item-desc"></p>
+                <div class="item-header"><h3 class="item-title">CARAMEL LATTE  </h3><span class="item-price">90 TL</span></div><p class="item-desc"></p>
+				  <div class="item-header"><h3 class="item-title">ICED CARAMEL LATTE  </h3><span class="item-price">90 TL</span></div><p class="item-desc"></p>
             </div>
             <div class="menu-item" data-category="kahve">
                 <div class="item-img-container"><img src="cappucino.png" class="item-img" alt="CAPPUCCINO"></div>
                 <div class="item-header"><h3 class="item-title">CAPPUCCINO</h3><span class="item-price">70 TL</span></div><p class="item-desc"></p>
+				  <div class="item-header"><h3 class="item-title"> ICED CAPPUCINO  </h3><span class="item-price">90 TL</span></div><p class="item-desc"></p>
             </div>
             <div class="menu-item" data-category="kahve">
                 <div class="item-img-container"><img src="latte.png" class="item-img" alt="LATTE"></div>
-                <div class="item-header"><h3 class="item-title">LATTE</h3><span class="item-price">70 TL</span></div><p class="item-desc"></p>
+                <div class="item-header"><h3 class="item-title">LATTE </h3><span class="item-price">70 TL</span></div><p class="item-desc"></p>
+				  <div class="item-header"><h3 class="item-title">ICED  LATTE  </h3><span class="item-price">90 TL</span></div><p class="item-desc"></p>
             </div>
             <div class="menu-item" data-category="kahve">
                 <div class="item-img-container"><img src="flat.jpg" class="item-img" alt="FLAT WHITE / ICED FLAT WHITE"></div>
-                <div class="item-header"><h3 class="item-title">FLAT WHITE / ICED FLAT WHITE</h3><span class="item-price">70 TL</span></div><p class="item-desc"></p>
+                <div class="item-header"><h3 class="item-title">FLAT WHITE </h3><span class="item-price">70 TL</span></div><p class="item-desc"></p>
+				  <div class="item-header"><h3 class="item-title">ICED FLAT WHITE  </h3><span class="item-price">90 TL</span></div><p class="item-desc"></p>
             </div>
             <div class="menu-item" data-category="kahve">
                 <div class="item-img-container"><img src="mocha.png" class="item-img" alt="MOCHA"></div>
-                <div class="item-header"><h3 class="item-title">MOCHA</h3><span class="item-price">70 TL</span></div><p class="item-desc"></p>
+                <div class="item-header"><h3 class="item-title">MOCHA </h3><span class="item-price">70 TL</span></div><p class="item-desc"></p>
+				  <div class="item-header"><h3 class="item-title">ICED MOCHA  </h3><span class="item-price">90 TL</span></div><p class="item-desc"></p>
+            </div>
+            <div class="menu-item" data-category="kahvalti">
+                <div class="item-img-container"><img src="simit.png" class="item-img" alt="KARIŞIK KAHVALTI TABAĞI"></div>
+                <div class="item-header"><h3 class="item-title">Simit</h3><span class="item-price">17,5 TL</span></div>                 
+            </div>
+            <div class="menu-item" data-category="kahvalti">
+                <div class="item-img-container"><img src="pogaca.png" class="item-img" alt="KARIŞIK KAHVALTI TABAĞI"></div>
+                <div class="item-header"><h3 class="item-title">Poğaça</h3><span class="item-price"> 20 TL</span></div>                
+            </div>
+            <div class="menu-item" data-category="kahvalti">
+                <div class="item-img-container"><img src="kasarlısimit.png" class="item-img" alt="KARIŞIK KAHVALTI TABAĞI"></div>
+                <div class="item-header"><h3 class="item-title">Domatesli-Kaşarlı Simit</h3><span class="item-price">60 TL</span></div>
+                <div class="item-header"><h3 class="item-title">Bol Kaşarlı-Domatesli Simit</h3><span class="item-price">70 TL</span></div>
+            </div>
+            <div class="menu-item" data-category="kahvalti">
+                <div class="item-img-container"><img src="kasarlıpogaca.png" class="item-img" alt="KARIŞIK KAHVALTI TABAĞI"></div>
+                <div class="item-header"><h3 class="item-title">Domatesli-kaşarlı Poğaça</h3><span class="item-price"> 45 TL</span></div>                
+            </div>
+            <div class="menu-item" data-category="kahvalti">
+                <div class="item-img-container"><img src="yesilzeytin.png" class="item-img" alt="KARIŞIK KAHVALTI TABAĞI"></div>
+                <div class="item-header"><h3 class="item-title">Yeşil Zeytin</h3><span class="item-price"> 20 TL</span></div>                
+            </div>
+            <div class="menu-item" data-category="kahvalti">
+                <div class="item-img-container"><img src="ucgenpeynır.png" class="item-img" alt="KARIŞIK KAHVALTI TABAĞI"></div>
+                <div class="item-header"><h3 class="item-title">Üçgen Peynir</h3><span class="item-price"> 20 TL</span></div>                
             </div>
 
+        </div>
+    </div>
+
+    <div id="sauceModal" class="admin-modal">
+        <div class="admin-content" style="max-width: 400px;">
+            <h2 style="color: #059669; border-bottom: 2px solid #10b981; padding-bottom: 10px; margin-bottom: 20px;">Sos Menüsü</h2>
+            <div id="sauceListContainer"></div>
+            <button class="add-extra-btn" id="openAddSauceBtn">+ Yeni Sos Ekle</button>
+            <button class="admin-btn close-btn" id="closeSauceBtn" style="margin-top: 20px;">Kapat</button>
+        </div>
+    </div>
+
+    <div id="snackModal" class="admin-modal">
+        <div class="admin-content" style="max-width: 400px;">
+            <h2 style="color: #d97706; border-bottom: 2px solid #f59e0b; padding-bottom: 10px; margin-bottom: 20px;">Atıştırmalıklar</h2>
+            <div id="snackListContainer"></div>
+            <button class="add-extra-btn" style="background:#f59e0b;" id="openAddSnackBtn">+ Yeni Atıştırmalık Ekle</button>
+            <button class="admin-btn close-btn" id="closeSnackBtn" style="margin-top: 20px;">Kapat</button>
+        </div>
+    </div>
+
+    <div class="admin-modal" id="extraAdminModal">
+        <div class="admin-content" style="max-width: 350px;">
+            <h2 id="extraModalTitle">Ekstra Ekle</h2>
+            <input type="hidden" id="extraType">
+            <input type="hidden" id="extraOriginalName">
+            <div class="admin-form-group"><label>Adı</label><input type="text" id="extraName" placeholder="Örn: Ketçap veya Cookie"></div>
+            <div class="admin-form-group"><label>Fiyatı</label><input type="text" id="extraPrice" placeholder="Örn: +5 TL veya 55 TL"></div>
+            <div class="admin-form-group"><label>Açıklama (Opsiyonel)</label><textarea id="extraDesc" rows="2" placeholder="Örn: Fındıklı ve Damla Çikolatalı"></textarea></div>
+            <button class="admin-btn" id="saveExtraBtn">Kaydet</button>
+            <button class="admin-btn close-btn" id="closeExtraAdminBtn">Vazgeç</button>
         </div>
     </div>
 
@@ -485,6 +680,7 @@
     <div class="admin-modal" id="adminModal">
         <div class="admin-content">
             <h2 id="adminModalTitle">Yönetim Paneli</h2>
+            
             <div class="admin-form-group">
                 <label>Kategori</label>
                 <select id="newCategory">
@@ -493,11 +689,28 @@
                     <option value="soguk">Soğuk İçecekler</option>
                     <option value="pizza">Pizzalar</option>
                     <option value="kahve">Yeni Nesil Kahve</option>
+                    <option value="kahvalti">Kahvaltılıklar</option>
                 </select>
             </div>
-            <div class="admin-form-group"><label>Ürün Görseli (Dosya Adı veya Link)</label><input type="text" id="newImage" placeholder="Örn: burger.jpg veya https://..."></div>
-            <div class="admin-form-group"><label>Ürün Adı</label><input type="text" id="newName" placeholder="Örn: Karışık Tost"></div>
-            <div class="admin-form-group"><label>Fiyat</label><input type="text" id="newPrice" placeholder="Örn: 80 TL"></div>
+            
+            <div class="admin-form-group" style="background: rgba(16, 185, 129, 0.1); padding: 10px; border-radius: 12px;">
+                <label>Fotoğraf Yükle (Bilgisayardan)</label>
+                <input type="file" id="newImageFile" accept="image/*">
+            </div>
+            <div class="admin-form-group" style="text-align: center; font-size: 0.8rem; color: #64748b; font-weight: bold;">-- VEYA --</div>
+            <div class="admin-form-group">
+                <label>Ürün Görseli Linki (Opsiyonel)</label>
+                <input type="text" id="newImage" placeholder="Örn: burger.jpg veya https://...">
+            </div>
+
+            <div class="admin-form-group" id="dynamicOptionsGroup">
+                <label style="display:flex; justify-content:space-between; align-items:center;">
+                    Ürün Seçenekleri (Ad ve Fiyat)
+                    <button type="button" id="addOptionBtn" style="background:#10b981; color:white; border:none; border-radius:4px; padding:4px 8px; cursor:pointer; font-size:0.75rem; font-weight:600;">+ Seçenek Ekle</button>
+                </label>
+                <div id="optionsContainer"></div>
+            </div>
+
             <div class="admin-form-group"><label>İçerik (Opsiyonel)</label><textarea id="newDesc" rows="3" placeholder="Örn: Kaşar, sucuk..."></textarea></div>
             <button class="admin-btn" id="saveProductBtn">Kaydet</button>
             <button class="admin-btn close-btn" id="closeAdminBtn">Vazgeç</button>
@@ -508,6 +721,31 @@
         window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
         
         document.addEventListener('DOMContentLoaded', () => {
+
+            // --- DİNAMİK SEÇENEK (ROW) EKLEME FONKSİYONU ---
+            function addOptionRow(nameVal = '', priceVal = '') {
+                const container = document.getElementById('optionsContainer');
+                const row = document.createElement('div');
+                row.className = 'option-row';
+                row.style.display = 'flex';
+                row.style.gap = '10px';
+                row.style.marginBottom = '10px';
+                row.innerHTML = `
+                    <input type="text" class="opt-name" placeholder="Ürün Adı (Örn: Karışık Tost)" value="${nameVal}" style="flex: 2; padding: 10px; border: 1px solid rgba(255,255,255,0.6); border-radius: 8px; outline:none; font-family: 'Poppins', sans-serif;">
+                    <input type="text" class="opt-price" placeholder="Fiyat (Örn: 80 TL)" value="${priceVal}" style="flex: 1; padding: 10px; border: 1px solid rgba(255,255,255,0.6); border-radius: 8px; outline:none; font-family: 'Poppins', sans-serif;">
+                    <button type="button" class="remove-opt-btn" style="background:#ef4444; color:white; border:none; border-radius:8px; cursor:pointer; padding:0 12px; font-weight:bold;">X</button>
+                `;
+                row.querySelector('.remove-opt-btn').addEventListener('click', () => {
+                    if (container.children.length > 1) {
+                        row.remove();
+                    } else {
+                        alert('En az bir seçenek kalmalıdır!');
+                    }
+                });
+                container.appendChild(row);
+            }
+            
+            document.getElementById('addOptionBtn').addEventListener('click', () => addOptionRow());
             
             // --- DARK MODE (KOYU TEMA) İŞLEMLERİ ---
             const themeToggleBtn = document.getElementById('themeToggle');
@@ -529,27 +767,69 @@
                 }
             });
 
+            // Gerekli Elementler
             const menuGrid = document.getElementById('menuGrid');
             const categoryView = document.getElementById('categoryView');
             const productsView = document.getElementById('productsView');
             const backToCategoriesBtn = document.getElementById('backToCategoriesBtn');
             const currentCategoryTitle = document.getElementById('currentCategoryTitle');
+            const categoryCards = document.querySelectorAll('.category-card');
+            
+            // Modal Elementleri
+            const sauceModal = document.getElementById('sauceModal');
+            const sauceTriggerContainer = document.getElementById('sauceTriggerContainer');
+            const openSauceBtn = document.getElementById('openSauceBtn');
+            const closeSauceBtn = document.getElementById('closeSauceBtn');
+            
+            const snackModal = document.getElementById('snackModal');
+            const snackTriggerContainer = document.getElementById('snackTriggerContainer');
+            const openSnackBtn = document.getElementById('openSnackBtn');
+            const closeSnackBtn = document.getElementById('closeSnackBtn');
+            
+            const extraAdminModal = document.getElementById('extraAdminModal');
             
             // !!! KENDİ FİREBASE LİNKİNİ BURAYA YAPIŞTIRMAYI UNUTMA !!!
             const dbUrl = "https://ozserap-menu-default-rtdb.europe-west1.firebasedatabase.app/menu.json"; 
             
             let customProducts = [];
             let deletedProducts = [];
+            
+            // Dinamik Sos ve Atıştırmalık Verileri
+            let customExtras = [];
+            let deletedExtras = [];
+            
+            // Varsayılan Ekstralar
+            const defaultExtras = [
+                { type: 'sauce', name: '🍅 Ketçap', price: '+5 TL', desc: '' },
+                { type: 'sauce', name: '🥚 Mayonez', price: '+5 TL', desc: '' },
+                { type: 'sauce', name: '🧄 Ranch Sos', price: '+10 TL', desc: '' },
+                { type: 'sauce', name: '🥪 Burger Sos', price: '+7 TL', desc: '' },
+                { type: 'sauce', name: '🧀 Cheddar Sos', price: '+10 TL', desc: '' },
+                { type: 'snack', name: '🍪 Cookie', price: '55 TL', desc: 'Fındıklı ve Damla Çikolatalı' },
+                { type: 'snack', name: '🍪 Kahve alana Cookie', price: '50 TL', desc: '' }
+            ];
+
             window.currentEditItem = null; 
 
             // --- SAYFA GÖRÜNÜM KONTROLLER ---
-            const categoryCards = document.querySelectorAll('.category-card');
-            
             categoryCards.forEach(card => {
                 card.addEventListener('click', () => {
                     const selectedCategory = card.getAttribute('data-category');
                     const title = card.getAttribute('data-title');
+                    
                     currentCategoryTitle.innerText = title;
+                    
+                    if (selectedCategory === 'doyuran' || selectedCategory === 'pizza') {
+                        sauceTriggerContainer.classList.remove('hidden-view');
+                    } else {
+                        sauceTriggerContainer.classList.add('hidden-view');
+                    }
+
+                    if (selectedCategory === 'kahve' || selectedCategory === 'sicak') {
+                        snackTriggerContainer.classList.remove('hidden-view');
+                    } else {
+                        snackTriggerContainer.classList.add('hidden-view');
+                    }
                     
                     document.querySelectorAll('.menu-item').forEach(item => {
                         if (item.getAttribute('data-category') === selectedCategory) {
@@ -568,26 +848,63 @@
             backToCategoriesBtn.addEventListener('click', () => {
                 productsView.classList.add('hidden-view');
                 categoryView.classList.remove('hidden-view');
+                sauceTriggerContainer.classList.add('hidden-view'); 
+                snackTriggerContainer.classList.add('hidden-view'); 
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
 
+            // Sos/Atıştırmalık Penceresi Kontrolleri
+            openSauceBtn.addEventListener('click', () => sauceModal.style.display = 'flex');
+            closeSauceBtn.addEventListener('click', () => sauceModal.style.display = 'none');
+            
+            openSnackBtn.addEventListener('click', () => snackModal.style.display = 'flex');
+            closeSnackBtn.addEventListener('click', () => snackModal.style.display = 'none');
 
+            document.getElementById('closeExtraAdminBtn').addEventListener('click', () => {
+                extraAdminModal.style.display = 'none';
+            });
+
+            window.addEventListener('click', (e) => { 
+                if (e.target === sauceModal) sauceModal.style.display = 'none'; 
+                if (e.target === snackModal) snackModal.style.display = 'none'; 
+            });
+
+            // --- FOTOĞRAF YÜKLEME (BASE64) ---
+            let uploadedImageBase64 = null;
+            document.getElementById('newImageFile').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(evt) {
+                        uploadedImageBase64 = evt.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    uploadedImageBase64 = null;
+                }
+            });
+
+            // --- VERİTABANI İŞLEMLERİ (GÜVENLİ FİLTRE EKLENDİ) ---
             async function loadDataFromCloud() {
                 try {
                     const response = await fetch(dbUrl);
                     const data = await response.json();
                     if (data) {
-                        customProducts = data.customProducts || [];
-                        deletedProducts = data.deletedProducts || [];
+                        // Firebase Array -> Object dönüşüm hatasına karşı (Object.values kullanımı)
+                        customProducts = data.customProducts ? (Array.isArray(data.customProducts) ? data.customProducts : Object.values(data.customProducts)) : [];
+                        deletedProducts = data.deletedProducts ? (Array.isArray(data.deletedProducts) ? data.deletedProducts : Object.values(data.deletedProducts)) : [];
+                        customExtras = data.customExtras ? (Array.isArray(data.customExtras) ? data.customExtras : Object.values(data.customExtras)) : [];
+                        deletedExtras = data.deletedExtras ? (Array.isArray(data.deletedExtras) ? data.deletedExtras : Object.values(data.deletedExtras)) : [];
                     }
                 } catch (error) {
                     console.error("Veritabanına bağlanılamadı.", error);
                 }
                 renderInitialProducts();
+                renderExtras();
             }
 
             async function saveDataToCloud() {
-                const dataToSave = { customProducts, deletedProducts };
+                const dataToSave = { customProducts, deletedProducts, customExtras, deletedExtras };
                 try {
                     await fetch(dbUrl, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dataToSave) });
                 } catch (error) {
@@ -595,10 +912,115 @@
                 }
             }
 
+            // --- EKSTRA (SOS/ATIŞTIRMALIK) RENDER İŞLEMLERİ ---
+            function renderExtras() {
+                const sauceContainer = document.getElementById('sauceListContainer');
+                const snackContainer = document.getElementById('snackListContainer');
+                
+                sauceContainer.innerHTML = '';
+                snackContainer.innerHTML = '';
+
+                const allExtras = [...defaultExtras, ...customExtras];
+                
+                allExtras.forEach(extra => {
+                    if (deletedExtras.includes(extra.name)) return;
+                    if (defaultExtras.includes(extra) && customExtras.some(c => c.name === extra.name)) return;
+
+                    const extraDiv = document.createElement('div');
+                    extraDiv.className = 'sauce-row';
+                    
+                    let descHtml = extra.desc ? `<p class="item-desc" style="margin-top:2px;">${extra.desc}</p>` : '';
+                    
+                    extraDiv.innerHTML = `
+                        <div class="sauce-content">
+                            <div>
+                                <span>${extra.name}</span>
+                                ${descHtml}
+                            </div>
+                            <span class="item-price" style="font-size: 0.8rem;">${extra.price}</span>
+                        </div>
+                        <div class="extra-admin-actions">
+                            <button class="extra-edit-btn">✏️ Düzenle</button>
+                            <button class="extra-delete-btn">🗑️ Sil</button>
+                        </div>
+                    `;
+
+                    extraDiv.querySelector('.extra-edit-btn').addEventListener('click', () => {
+                        document.getElementById('extraType').value = extra.type;
+                        document.getElementById('extraOriginalName').value = extra.name;
+                        document.getElementById('extraName').value = extra.name;
+                        document.getElementById('extraPrice').value = extra.price;
+                        document.getElementById('extraDesc').value = extra.desc || '';
+                        document.getElementById('extraModalTitle').innerText = (extra.type === 'sauce' ? 'Sosu' : 'Atıştırmalığı') + ' Düzenle';
+                        
+                        extraAdminModal.style.display = 'flex';
+                    });
+
+                    extraDiv.querySelector('.extra-delete-btn').addEventListener('click', () => {
+                        if(confirm(`"${extra.name}" adlı ürünü silmek istediğinize emin misiniz?`)) {
+                            deletedExtras.push(extra.name);
+                            customExtras = customExtras.filter(c => c.name !== extra.name);
+                            saveDataToCloud();
+                            renderExtras();
+                        }
+                    });
+
+                    if(extra.type === 'sauce') {
+                        sauceContainer.appendChild(extraDiv);
+                    } else if (extra.type === 'snack') {
+                        snackContainer.appendChild(extraDiv);
+                    }
+                });
+            }
+
+            document.getElementById('saveExtraBtn').addEventListener('click', () => {
+                const type = document.getElementById('extraType').value;
+                const originalName = document.getElementById('extraOriginalName').value;
+                const name = document.getElementById('extraName').value.trim();
+                const price = document.getElementById('extraPrice').value.trim();
+                const desc = document.getElementById('extraDesc').value.trim();
+
+                if (!name || !price) { alert("Ad ve Fiyat boş olamaz!"); return; }
+
+                if (originalName) {
+                    deletedExtras.push(originalName);
+                    customExtras = customExtras.filter(c => c.name !== originalName);
+                }
+
+                customExtras.push({ type, name, price, desc });
+                saveDataToCloud();
+                renderExtras();
+                extraAdminModal.style.display = 'none';
+            });
+
+            document.getElementById('openAddSauceBtn').addEventListener('click', () => {
+                document.getElementById('extraType').value = 'sauce';
+                document.getElementById('extraOriginalName').value = '';
+                document.getElementById('extraName').value = '';
+                document.getElementById('extraPrice').value = '';
+                document.getElementById('extraDesc').value = '';
+                document.getElementById('extraModalTitle').innerText = 'Yeni Sos Ekle';
+                extraAdminModal.style.display = 'flex';
+            });
+
+            document.getElementById('openAddSnackBtn').addEventListener('click', () => {
+                document.getElementById('extraType').value = 'snack';
+                document.getElementById('extraOriginalName').value = '';
+                document.getElementById('extraName').value = '';
+                document.getElementById('extraPrice').value = '';
+                document.getElementById('extraDesc').value = '';
+                document.getElementById('extraModalTitle').innerText = 'Yeni Atıştırmalık Ekle';
+                extraAdminModal.style.display = 'flex';
+            });
+
+            // --- ÜRÜN RENDER İŞLEMLERİ ---
             function renderInitialProducts() {
                 const defaultItems = document.querySelectorAll('.menu-item');
                 defaultItems.forEach(item => {
-                    const title = item.querySelector('.item-title').innerText;
+                    const firstHeader = item.querySelector('.item-title');
+                    if(!firstHeader) return;
+                    
+                    const title = firstHeader.innerText;
                     const price = item.querySelector('.item-price').innerText;
                     const descEl = item.querySelector('.item-desc');
                     const desc = descEl ? descEl.innerText : "";
@@ -614,11 +1036,22 @@
                 });
 
                 customProducts.forEach(prod => {
-                    createProductHTML(prod.category, prod.name, prod.price, prod.desc, prod.image, false);
+                    if (prod.options) {
+                        createProductHTML(prod.category, prod.options, null, prod.desc, prod.image, false);
+                    } else {
+                        createProductHTML(prod.category, prod.name, prod.price, prod.desc, prod.image, false);
+                    }
                 });
             }
 
-            function createProductHTML(category, name, price, desc, image, isNew = false) {
+            function createProductHTML(category, nameOrOptions, price, desc, image, isNew = false) {
+                let optionsToSave = [];
+                if (Array.isArray(nameOrOptions)) {
+                    optionsToSave = nameOrOptions;
+                } else {
+                    optionsToSave = [{name: nameOrOptions, price: price}];
+                }
+
                 const itemDiv = document.createElement('div');
                 itemDiv.className = 'menu-item';
                 itemDiv.setAttribute('data-category', category);
@@ -631,18 +1064,23 @@
                 }
                 
                 const finalImage = image || 'urun-gorseli.jpg';
+                let headersHtml = optionsToSave.map(opt => `<div class="item-header"><h3 class="item-title">${opt.name}</h3><span class="item-price">${opt.price}</span></div>`).join('');
 
                 itemDiv.innerHTML = `
-                    <div class="item-img-container"><img src="${finalImage}" class="item-img" alt="${name}"></div>
-                    <div class="item-header"><h3 class="item-title">${name}</h3><span class="item-price">${price}</span></div>
+                    <div class="item-img-container"><img src="${finalImage}" class="item-img" alt="${optionsToSave[0].name}"></div>
+                    ${headersHtml}
                     <p class="item-desc">${desc}</p>
                 `;
 
-                addAdminButtons(itemDiv, name, price, desc, category, finalImage, true);
+                addAdminButtons(itemDiv, optionsToSave[0].name, optionsToSave[0].price, desc, category, finalImage, true);
                 menuGrid.appendChild(itemDiv);
 
                 if (isNew) {
-                    customProducts.push({ category, name, price, desc, image: finalImage });
+                    if (optionsToSave.length === 1) {
+                        customProducts.push({ category, name: optionsToSave[0].name, price: optionsToSave[0].price, desc, image: finalImage });
+                    } else {
+                        customProducts.push({ category, options: optionsToSave, desc, image: finalImage });
+                    }
                     saveDataToCloud(); 
                 }
             }
@@ -658,14 +1096,34 @@
                 editBtn.className = 'edit-btn';
                 editBtn.innerHTML = '✏️ Düzenle';
                 editBtn.addEventListener('click', () => {
-                    document.getElementById('newCategory').value = category;
-                    document.getElementById('newImage').value = imageSrc === 'urun-gorseli.jpg' ? '' : imageSrc;
-                    document.getElementById('newName').value = name;
-                    document.getElementById('newPrice').value = price;
-                    document.getElementById('newDesc').value = desc;
+                    const cat = itemElement.getAttribute('data-category');
+                    const img = itemElement.querySelector('.item-img').getAttribute('src');
+                    const dEl = itemElement.querySelector('.item-desc');
+                    const d = dEl ? dEl.innerText : '';
+                    
+                    document.getElementById('newCategory').value = cat;
+                    document.getElementById('newImage').value = img === 'urun-gorseli.jpg' ? '' : img;
+                    document.getElementById('newImageFile').value = '';
+                    uploadedImageBase64 = null;
+                    document.getElementById('newDesc').value = d;
+                    
+                    // Seçenekleri dinamik yükle
+                    const optContainer = document.getElementById('optionsContainer');
+                    optContainer.innerHTML = '';
+                    const headers = itemElement.querySelectorAll('.item-header');
+                    headers.forEach(h => {
+                        const n = h.querySelector('.item-title').innerText;
+                        const p = h.querySelector('.item-price').innerText;
+                        addOptionRow(n, p);
+                    });
+                    
+                    if(headers.length === 0) addOptionRow(name, price);
+
+                    const primaryName = headers.length > 0 ? headers[0].querySelector('.item-title').innerText : name;
+                    
                     document.getElementById('adminModalTitle').innerText = 'Ürünü Düzenle';
                     document.getElementById('saveProductBtn').innerText = 'Değişiklikleri Kaydet';
-                    window.currentEditItem = { element: itemElement, originalName: name, isCustom: isCustom };
+                    window.currentEditItem = { element: itemElement, originalName: primaryName, isCustom: isCustom };
                     adminModal.style.display = 'flex';
                 });
                 
@@ -673,12 +1131,19 @@
                 deleteBtn.className = 'delete-btn';
                 deleteBtn.innerHTML = '🗑️ Sil';
                 deleteBtn.addEventListener('click', () => {
-                    if(confirm(`"${name}" adlı ürünü silmek istediğinize emin misiniz?`)) {
+                    const titleEl = itemElement.querySelector('.item-title');
+                    if(!titleEl) return;
+                    const primaryName = titleEl.innerText;
+
+                    if(confirm(`"${primaryName}" adlı ürünü silmek istediğinize emin misiniz?`)) {
                         itemElement.remove(); 
                         if(isCustom) {
-                            const idx = customProducts.findIndex(p => p.name === name);
+                            const idx = customProducts.findIndex(p => {
+                                const pName = p.options ? p.options[0].name : p.name;
+                                return pName === primaryName;
+                            });
                             if(idx > -1) customProducts.splice(idx, 1);
-                        } else { deletedProducts.push(name); }
+                        } else { deletedProducts.push(primaryName); }
                         saveDataToCloud(); 
                     }
                 });
@@ -690,13 +1155,17 @@
 
             loadDataFromCloud();
 
-            // Yönetici Paneli İşlemleri
+            // --- YÖNETİCİ PANELİ İŞLEMLERİ ---
             const adminModal = document.getElementById('adminModal');
             
             function resetModal() {
+                document.getElementById('newImageFile').value = "";
+                uploadedImageBase64 = null;
                 document.getElementById('newImage').value = "";
-                document.getElementById('newName').value = "";
-                document.getElementById('newPrice').value = "";
+                
+                document.getElementById('optionsContainer').innerHTML = "";
+                addOptionRow('', ''); // Modal açıldığında 1 adet boş gelsin
+
                 document.getElementById('newDesc').value = "";
                 document.getElementById('adminModalTitle').innerText = 'Yeni Ürün Ekle';
                 document.getElementById('saveProductBtn').innerText = 'Menüye Ekle';
@@ -716,21 +1185,32 @@
 
             document.getElementById('saveProductBtn').addEventListener('click', () => {
                 const category = document.getElementById('newCategory').value;
-                const imageVal = document.getElementById('newImage').value.trim();
-                const image = imageVal !== "" ? imageVal : 'urun-gorseli.jpg';
-                const name = document.getElementById('newName').value.toUpperCase();
-                const price = document.getElementById('newPrice').value;
+                const imageLinkVal = document.getElementById('newImage').value.trim();
+                const finalImage = uploadedImageBase64 ? uploadedImageBase64 : (imageLinkVal !== "" ? imageLinkVal : 'urun-gorseli.jpg');
                 const desc = document.getElementById('newDesc').value;
 
-                if(name === "" || price === "") { alert("Ad ve Fiyat boş bırakılamaz!"); return; }
+                // Dinamik Seçenekleri Al
+                const optRows = document.querySelectorAll('.option-row');
+                let options = [];
+                optRows.forEach(row => {
+                    const n = row.querySelector('.opt-name').value.trim().toUpperCase();
+                    const p = row.querySelector('.opt-price').value.trim();
+                    if(n && p) { options.push({name: n, price: p}); }
+                });
+
+                if(options.length === 0) { alert("Lütfen en az bir adet geçerli Ad ve Fiyat girin!"); return; }
 
                 if (window.currentEditItem) {
                     const { element, originalName, isCustom } = window.currentEditItem;
                     element.setAttribute('data-category', category);
-                    element.querySelector('.item-img').src = image;
-                    element.querySelector('.item-title').innerText = name;
-                    element.querySelector('.item-price').innerText = price;
-                    element.querySelector('.item-desc').innerText = desc;
+                    
+                    let headersHtml = options.map(opt => `<div class="item-header"><h3 class="item-title">${opt.name}</h3><span class="item-price">${opt.price}</span></div>`).join('');
+                    
+                    element.innerHTML = `
+                        <div class="item-img-container"><img src="${finalImage}" class="item-img" alt="${options[0].name}"></div>
+                        ${headersHtml}
+                        <p class="item-desc">${desc}</p>
+                    `;
                     
                     if (!productsView.classList.contains('hidden-view')) {
                          const currentActiveCategory = document.querySelector('.category-card[data-title="'+currentCategoryTitle.innerText+'"]').getAttribute('data-category');
@@ -739,15 +1219,28 @@
                     }
                     
                     if (isCustom) {
-                        const idx = customProducts.findIndex(p => p.name === originalName);
-                        if (idx > -1) customProducts[idx] = { category, name, price, desc, image };
+                        const idx = customProducts.findIndex(p => {
+                            const pName = p.options ? p.options[0].name : p.name;
+                            return pName === originalName;
+                        });
+                        if (idx > -1) {
+                            if(options.length === 1) {
+                                customProducts[idx] = { category, name: options[0].name, price: options[0].price, desc, image: finalImage };
+                            } else {
+                                customProducts[idx] = { category, options: options, desc, image: finalImage };
+                            }
+                        }
                     } else {
                         deletedProducts.push(originalName);
-                        customProducts.push({ category, name, price, desc, image });
+                        if(options.length === 1) {
+                            customProducts.push({ category, name: options[0].name, price: options[0].price, desc, image: finalImage });
+                        } else {
+                            customProducts.push({ category, options: options, desc, image: finalImage });
+                        }
                     }
-                    addAdminButtons(element, name, price, desc, category, image, true);
+                    addAdminButtons(element, options[0].name, options[0].price, desc, category, finalImage, true);
                 } else {
-                    createProductHTML(category, name, price, desc, image, true);
+                    createProductHTML(category, options, null, desc, finalImage, true);
                 }
                 saveDataToCloud();
                 resetModal();
