@@ -938,6 +938,7 @@
                     const response = await fetch(dbUrl);
                     const data = await response.json();
                     if (data) {
+                        // Firebase Array -> Object dönüşüm hatasına karşı
                         customProducts = data.customProducts ? (Array.isArray(data.customProducts) ? data.customProducts : Object.values(data.customProducts)) : [];
                         deletedProducts = data.deletedProducts ? (Array.isArray(data.deletedProducts) ? data.deletedProducts : Object.values(data.deletedProducts)) : [];
                         customExtras = data.customExtras ? (Array.isArray(data.customExtras) ? data.customExtras : Object.values(data.customExtras)) : [];
@@ -950,48 +951,17 @@
                 renderExtras();
             }
 
-           async function saveDataToCloud() {
-    const dataToSave = {
-        customProducts,
-        deletedProducts,
-        customExtras,
-        deletedExtras
-    };
-
-    try {
-        const jsonData = JSON.stringify(dataToSave);
-
-        console.log("dbUrl:", dbUrl);
-        console.log("Gönderilen veri:", dataToSave);
-        console.log("JSON boyutu:", jsonData.length);
-
-        const response = await fetch(dbUrl, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: jsonData
-        });
-
-        const responseText = await response.text();
-
-        console.log("Status:", response.status);
-        console.log("Response:", responseText);
-
-        if (!response.ok) {
-            alert(
-                "HATA!\nStatus: " + response.status +
-                "\nCevap: " + responseText
-            );
-            return;
-        }
-
-        alert("Kayıt başarılı!");
-    } catch (error) {
-        console.error("Bağlantı hatası:", error);
-        alert("Bağlantı hatası: " + error.message);
-    }
-}
+            async function saveDataToCloud() {
+                const dataToSave = { customProducts, deletedProducts, customExtras, deletedExtras };
+                try {
+                    const response = await fetch(dbUrl, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dataToSave) });
+                    if (!response.ok) {
+                        alert("HATA: Veri çok büyük veya sunucu reddetti! Lütfen daha küçük bir fotoğraf seçin.");
+                    }
+                } catch (error) {
+                    alert("Veritabanı bağlantı hatası!");
+                }
+            }
 
             // --- EKSTRA (SOS/ATIŞTIRMALIK) RENDER İŞLEMLERİ ---
             function renderExtras() {
@@ -1064,9 +1034,13 @@
                 if (!name || !price) { alert("Ad ve Fiyat boş olamaz!"); return; }
 
                 if (originalName) {
-                    deletedExtras.push(originalName);
+                    if (originalName !== name) {
+                        deletedExtras.push(originalName);
+                    }
                     customExtras = customExtras.filter(c => c.name !== originalName);
                 }
+
+                deletedExtras = deletedExtras.filter(d => d !== name);
 
                 customExtras.push({ type, name, price, desc });
                 saveDataToCloud();
@@ -1340,3 +1314,4 @@
     <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
+bu kodda verileri çekerken ve gönderirken cache tutulmaması için  urlnin sonuna rastgele rakam eklesek olur mu cache den dolayı yüklenmiyor bence
